@@ -6,10 +6,12 @@ public class pl_mvmnt : MonoBehaviour {
 
     public float speed; //Declare Speed
     public float maxstamina,curr_stamina,stamina_regen;  //Declare maxstamina, current stamina, and stamina_regen
+    private Rigidbody2D rb2d; 
 
     // Use this for initialization
     void Start () {
         curr_stamina = maxstamina;
+        rb2d = GetComponent<Rigidbody2D> (); //Get Rigidbody
     }
 
     //Function that checks for sprinting, returns speed, and lowers stamina if sprintin
@@ -22,21 +24,22 @@ public class pl_mvmnt : MonoBehaviour {
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            speed = 0.15f;
+            speed = 2f;
             stamina_regen = 1;
         }
         else
         {
-            speed = 0.15f;
+            speed = 15f;
         }
     }
 
-    // Update is called once per frame
-    void Update () {
-        //Updates speed and curr_stamina by checking for sprinting
-        Sprinting(ref speed,ref curr_stamina, ref stamina_regen);   
+    //FixedUpdate is independant of frame rate <3
+    private void FixedUpdate()
+    {
+        //Update speed and curr_stamina by checking for sprinting
+        Sprinting(ref speed, ref curr_stamina, ref stamina_regen);
 
-        //Update Sprinting
+        //Update Stamina
         if (curr_stamina < 0)
         {
             curr_stamina = 0;
@@ -49,45 +52,86 @@ public class pl_mvmnt : MonoBehaviour {
         {
             curr_stamina = curr_stamina + stamina_regen;
         }
-        
-        //Movement of the Player
-        if (Input.GetKey(KeyCode.D))
-        {
-            Vector3 position = this.transform.position;
-            position.x=position.x+speed;
-            this.transform.position = position;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            Vector3 position = this.transform.position;
-            position.x=position.x-speed;
-            this.transform.position = position;
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            Vector3 position = this.transform.position;
-            position.y=position.y+speed;
-            this.transform.position = position;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            Vector3 position = this.transform.position;
-            position.y=position.y-speed;
-            this.transform.position = position;
-        }
+
+        //Get Horizontal Movement
+        float HorizontalMove = Input.GetAxis("Horizontal");
+
+        //Get Vertical Movement
+        float VerticalMove = Input.GetAxis("Vertical");
+
+        //Create movement Vector
+        Vector2 move = new Vector2(HorizontalMove, VerticalMove);
+        //Debug.Log(move);
+        //AddForce to rigidbody to move player (speed already defined)
+        rb2d.AddForce(move * speed);
 
         //Rotation of the Player
         Vector2 playerpos = Camera.main.WorldToViewportPoint(transform.position);   //Define Player Position
         Vector2 mousepos = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition); //Define Mouse Position
-        float angle = AngleBetweenTwoPoints(playerpos, mousepos)+90;   //Solve for the angle between the player and mouse
+        float angle = AngleBetweenTwoPoints(playerpos, mousepos) + 90;   //Solve for the angle between the player and mouse
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));  //Rotate Player
+
     }
-    
+
+   
     //Function that finds the angle between two specified vector points
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
-    
+  
 }
 //Scrap
+/*
+   // Update is called once per frame
+   void Update () {
+       //Updates speed and curr_stamina by checking for sprinting
+       Sprinting(ref speed,ref curr_stamina, ref stamina_regen);   
+
+       //Update Sprinting
+       if (curr_stamina < 0)
+       {
+           curr_stamina = 0;
+       }
+       else if (curr_stamina > maxstamina)
+       {
+           curr_stamina = maxstamina;
+       }
+       else
+       {
+           curr_stamina = curr_stamina + stamina_regen;
+       }
+
+       //Movement of the Player
+       if (Input.GetKey(KeyCode.D))
+       {
+           Vector3 position = this.transform.position;
+           position.x=position.x+speed;
+           this.transform.position = position;
+       }
+       if (Input.GetKey(KeyCode.A))
+       {
+           Vector3 position = this.transform.position;
+           position.x=position.x-speed;
+           this.transform.position = position;
+       }
+       if (Input.GetKey(KeyCode.W))
+       {
+           Vector3 position = this.transform.position;
+           position.y=position.y+speed;
+           this.transform.position = position;
+       }
+       if (Input.GetKey(KeyCode.S))
+       {
+           Vector3 position = this.transform.position;
+           position.y=position.y-speed;
+           this.transform.position = position;
+       }
+
+       //Rotation of the Player
+       Vector2 playerpos = Camera.main.WorldToViewportPoint(transform.position);   //Define Player Position
+       Vector2 mousepos = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition); //Define Mouse Position
+       float angle = AngleBetweenTwoPoints(playerpos, mousepos)+90;   //Solve for the angle between the player and mouse
+       transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));  //Rotate Player
+   }
+   */
