@@ -66,6 +66,13 @@ public class pl_mvmnt : MonoBehaviour {
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));  //Rotate Player
 
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "object" && Input.GetKey(KeyCode.Mouse1))
+        {
+            Debug.Log("It can see it!"); //Figure out how to pull towards the player plz <3    -Past me
+        }
+    }
 
     //Function that finds the angle between two specified vector points
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

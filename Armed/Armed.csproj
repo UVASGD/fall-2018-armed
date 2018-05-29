@@ -283,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\cam_controller.cs" />
+    <Compile Include="Assets\Scripts\obj_script.cs" />
     <Compile Include="Assets\Scripts\pl_mvmnt.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
