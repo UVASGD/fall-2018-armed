@@ -73,7 +73,13 @@ public class pl_mvmnt : MonoBehaviour {
             Debug.Log("It can see it!"); //Figure out how to pull towards the player plz <3    -Past me
         }
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "object" && Input.GetKey(KeyCode.Mouse1))
+        {
+            Debug.Log("It hit the player!");    //Figure out how to make object part of player plz <3   -Slightly less past me
+        }
+    }
     //Function that finds the angle between two specified vector points
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
