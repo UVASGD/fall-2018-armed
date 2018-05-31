@@ -6,6 +6,8 @@ public class pl_mvmnt : MonoBehaviour {
 
     public float speed; //Declare Speed
     public float maxstamina,curr_stamina,stamina_regen;  //Declare maxstamina, current stamina, and stamina_regen
+    //public int inventory;   //Declare inventory, the number of objects currently held by the player
+    private List<string> inventory = new List<string>();    //Declare inventory list, which will store the objects
     private Rigidbody2D rb2d; 
 
     // Use this for initialization
@@ -73,13 +75,22 @@ public class pl_mvmnt : MonoBehaviour {
             Debug.Log("It can see it!"); //Figure out how to pull towards the player plz <3    -Past me
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "object" && Input.GetKey(KeyCode.Mouse1))
         {
             Debug.Log("It hit the player!");    //Figure out how to make object part of player plz <3   -Slightly less past me
+            inventory.Add("object");
+            Destroy(collision.gameObject);
+            foreach (string str in inventory)
+            {
+                print(str);
+            }
+
         }
     }
+
     //Function that finds the angle between two specified vector points
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
