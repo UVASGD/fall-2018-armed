@@ -10,11 +10,11 @@ public class pl_mvmnt : MonoBehaviour {
     private List<string> inventory = new List<string>();    //Declare inventory list, which will store the objects
     private Rigidbody2D rb2d;
 
-    //Declare prefab objects
-    public GameObject obj = (GameObject) Instantiate(Resources.Load("object"));
-    public GameObject box = (GameObject)Instantiate(Resources.Load("box"));
-    public GameObject sq = (GameObject)Instantiate(Resources.Load("square"));
-    public GameObject flat = (GameObject)Instantiate(Resources.Load("flat cube"));
+    ////Declare prefab objects
+    //public GameObject obj = (GameObject) Instantiate(Resources.Load("object"));
+    //public GameObject box = (GameObject)Instantiate(Resources.Load("box"));
+    //public GameObject sq = (GameObject)Instantiate(Resources.Load("square"));
+    //public GameObject flat = (GameObject)Instantiate(Resources.Load("flat cube"));
 
     // Use this for initialization
     void Start () {
