@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class pl_mvmnt : MonoBehaviour {
 
+    //Declare needed variables
     public float speed; //Declare Speed
     public float maxstamina,curr_stamina,stamina_regen;  //Declare maxstamina, current stamina, and stamina_regen
-    //public int inventory;   //Declare inventory, the number of objects currently held by the player
     private List<string> inventory = new List<string>();    //Declare inventory list, which will store the objects
+    private List<string> tags = new List<string> { "object","pistol","machine_gun","shotgun" };
     private Rigidbody2D rb2d;
 
-    ////Declare prefab objects
-    //public GameObject obj = (GameObject) Instantiate(Resources.Load("object"));
-    //public GameObject box = (GameObject)Instantiate(Resources.Load("box"));
-    //public GameObject sq = (GameObject)Instantiate(Resources.Load("square"));
-    //public GameObject flat = (GameObject)Instantiate(Resources.Load("flat cube"));
+    //Declare prefab objects
+    public GameObject objectPrefab;
+    public Transform objectSpawn;
 
-    // Use this for initialization
+    // Initialize variables
     void Start () {
         curr_stamina = maxstamina;
         rb2d = GetComponent<Rigidbody2D> (); //Get Rigidbody
-        
-
     }
 
-    //Function that checks for sprinting, returns speed, and lowers stamina if sprintin
+    //Check for sprinting, returns speed, and lowers stamina if sprinting
     void Sprinting(ref float speed, ref float curr_stamina, ref float stamina_regen)
         {
         if (Input.GetKey(KeyCode.LeftShift) && curr_stamina > 0) {
@@ -43,7 +40,7 @@ public class pl_mvmnt : MonoBehaviour {
         }
     }
 
-    //FixedUpdate is independant of frame rate <3
+    //Update player movement, throw items, etc. 
     private void FixedUpdate()
     {        
         //Updates speed and curr_stamina by checking for sprinting
@@ -82,53 +79,40 @@ public class pl_mvmnt : MonoBehaviour {
             int a = inventory.Count;
             print("The inventory has stuff in it");
             print("The length of the inventory is " + a);
-            //if (inventory[a - 1] == "object")
-            //{
-            //    inst = obj;
-            //}
-            //else if (inventory[a - 1] == "box")
-            //{
-            //    inst = box;
-            //}
-            //else if (inventory[a - 1] == "square")
-            //{
-            //    inst = sq;
-            //}
-            //else if (inventory[a-1] == "flat cube")
-            //{
-            //    inst = flat;
-            //}
-
-            //Instantiate(inst, new Vector3(0, 0, 0), Quaternion.identity);
+            if (inventory[a - 1] == "object")   //There's got to be a better way of doing this
+            {
+                var projectile = (GameObject)Instantiate(objectPrefab, objectSpawn.position, objectSpawn.rotation);
+            }
             
         }
 
     }
+
+    //Detecting if players try to collect objects
     private void OnTriggerStay2D(Collider2D collision)
     {
         //Detect if player is pulling an object towards them
-        if (collision.gameObject.tag == "object" && Input.GetKey(KeyCode.Mouse1))
+        if (tags.Contains(collision.gameObject.tag))
         {
-            //Debug.Log("It can see it!"); //Figure out how to pull towards the player plz <3    -Past me
+            Debug.Log("It can see it!"); //Figure out how to pull towards the player plz <3    -Past me
         }
     }
 
+    //Detecting if players pick up items
     private void OnCollisionStay2D(Collision2D collision)
     {
         //Detect if player collects an object
-        if(collision.gameObject.tag == "object" && Input.GetKey(KeyCode.Mouse1))
+        if (tags.Contains(collision.gameObject.tag))
         {
-            //Debug.Log("It hit the player!");    //Figure out how to make object part of player plz <3   -Slightly less past me
-            inventory.Add(collision.gameObject.name);
+            inventory.Add(collision.gameObject.tag);
             Destroy(collision.gameObject);
-            //foreach (string str in inventory)
-            //{
-            //    print(str);
-            //}
-
         }
+        ////A debugging step to see if items are being added to the inventory correctly
+        //foreach (string str in inventory)
+        //{
+        //    print(str);
+        //}
     }
-
 
     //Function that finds the angle between two specified vector points
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

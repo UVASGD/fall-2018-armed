@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 212535569608425034}
   - component: {fileID: 114937932193565814}
   - component: {fileID: 50470636637557126}
+  - component: {fileID: 58677250916478628}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -63,6 +64,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58677250916478628
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1852528298055190}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3
 --- !u!61 &61994667051649992
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -103,6 +119,9 @@ MonoBehaviour:
   maxstamina: 100
   curr_stamina: 0
   stamina_regen: 0
+  objectPrefab: {fileID: 1590020353765742, guid: cce197c98e577a04fb9fdba5716c4ff7,
+    type: 2}
+  objectSpawn: {fileID: 4716775939994874}
 --- !u!212 &212535569608425034
 SpriteRenderer:
   m_ObjectHideFlags: 1
