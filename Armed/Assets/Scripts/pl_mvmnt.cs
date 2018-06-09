@@ -14,6 +14,9 @@ public class pl_mvmnt : MonoBehaviour {
     //Declare prefab objects
     public GameObject objectPrefab;
     public Transform objectSpawn;
+    public GameObject pistolPrefab;
+    public GameObject shotgunPrefab;
+    public GameObject machine_gunPrefab;
 
     // Initialize variables
     void Start () {
@@ -75,15 +78,34 @@ public class pl_mvmnt : MonoBehaviour {
         //Check for Throwing item
         if (Input.GetKeyDown(KeyCode.Mouse0) && inventory.Count > 0)
         {
-            var inst = new GameObject();
+            //var inst = new GameObject();
             int a = inventory.Count;
             print("The inventory has stuff in it");
             print("The length of the inventory is " + a);
-            if (inventory[a - 1] == "object")   //There's got to be a better way of doing this
+            print(inventory[a - 1]);
+            //There's got to be a better way of doing this... Jared, halp plz
+            if (inventory[a - 1] == "object")  
             {
                 var projectile = (GameObject)Instantiate(objectPrefab, objectSpawn.position, objectSpawn.rotation);
+                inventory.Remove(inventory[a - 1]);
+            }
+            else if (inventory[a - 1] == "pistol")
+            {
+                var projectile = (GameObject)Instantiate(pistolPrefab, objectSpawn.position, objectSpawn.rotation);
+                inventory.Remove(inventory[a - 1]);
+            }
+            else if (inventory[a - 1] == "shotgun")
+            {
+                var projectile = (GameObject)Instantiate(shotgunPrefab, objectSpawn.position, objectSpawn.rotation);
+                inventory.Remove(inventory[a - 1]);
+            }
+            else if (inventory[a - 1] == "machine_gun")
+            {
+                var projectile = (GameObject)Instantiate(machine_gunPrefab, objectSpawn.position, objectSpawn.rotation);
+                inventory.Remove(inventory[a - 1]);
             }
             
+
         }
 
     }
@@ -92,7 +114,7 @@ public class pl_mvmnt : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D collision)
     {
         //Detect if player is pulling an object towards them
-        if (tags.Contains(collision.gameObject.tag))
+        if (tags.Contains(collision.gameObject.tag) && Input.GetKey(KeyCode.Mouse1))
         {
             Debug.Log("It can see it!"); //Figure out how to pull towards the player plz <3    -Past me
         }
@@ -102,7 +124,7 @@ public class pl_mvmnt : MonoBehaviour {
     private void OnCollisionStay2D(Collision2D collision)
     {
         //Detect if player collects an object
-        if (tags.Contains(collision.gameObject.tag))
+        if (tags.Contains(collision.gameObject.tag) && Input.GetKey(KeyCode.Mouse1))
         {
             inventory.Add(collision.gameObject.tag);
             Destroy(collision.gameObject);

@@ -73,12 +73,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 2
 --- !u!61 &61994667051649992
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -122,6 +122,12 @@ MonoBehaviour:
   objectPrefab: {fileID: 1590020353765742, guid: cce197c98e577a04fb9fdba5716c4ff7,
     type: 2}
   objectSpawn: {fileID: 4716775939994874}
+  pistolPrefab: {fileID: 1394037376390460, guid: e6cb268742cf73f4c987d2079f3916b7,
+    type: 2}
+  shotgunPrefab: {fileID: 1954177606620074, guid: 332543f88ba1eee4a81e6cd13c2f06c9,
+    type: 2}
+  machine_gunPrefab: {fileID: 1465110179352908, guid: 3724bbfd275194b4ba7cb28a9d864ecc,
+    type: 2}
 --- !u!212 &212535569608425034
 SpriteRenderer:
   m_ObjectHideFlags: 1
