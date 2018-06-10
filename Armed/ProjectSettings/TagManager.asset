@@ -17,9 +17,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Walls
+  - Floors
+  - Objects
   - 
   - 
   - 
@@ -45,6 +45,15 @@ TagManager:
   - name: Background
     uniqueID: 1345447463
     locked: 0
+  - name: Floors
+    uniqueID: 560570013
+    locked: 0
+  - name: Objects
+    uniqueID: 3244437475
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Walls
+    uniqueID: 3272699535
     locked: 0

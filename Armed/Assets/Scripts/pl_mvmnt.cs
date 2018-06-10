@@ -88,23 +88,26 @@ public class pl_mvmnt : MonoBehaviour {
             {
                 var projectile = (GameObject)Instantiate(objectPrefab, objectSpawn.position, objectSpawn.rotation);
                 inventory.Remove(inventory[a - 1]);
+                projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * 6;   //Add momentum?
             }
             else if (inventory[a - 1] == "pistol")
             {
                 var projectile = (GameObject)Instantiate(pistolPrefab, objectSpawn.position, objectSpawn.rotation);
                 inventory.Remove(inventory[a - 1]);
+                projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * 6;   //Add momentum?
             }
             else if (inventory[a - 1] == "shotgun")
             {
                 var projectile = (GameObject)Instantiate(shotgunPrefab, objectSpawn.position, objectSpawn.rotation);
                 inventory.Remove(inventory[a - 1]);
+                projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * 6;   //Add momentum?
             }
             else if (inventory[a - 1] == "machine_gun")
             {
                 var projectile = (GameObject)Instantiate(machine_gunPrefab, objectSpawn.position, objectSpawn.rotation);
                 inventory.Remove(inventory[a - 1]);
+                projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * 6;   //Add momentum?
             }
-            
 
         }
 
