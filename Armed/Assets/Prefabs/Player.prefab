@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114937932193565814}
   - component: {fileID: 50470636637557126}
   - component: {fileID: 58677250916478628}
+  - component: {fileID: 114656884253216234}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -66,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1852528298055190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31, y: -8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4174085859910014}
@@ -133,6 +134,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114656884253216234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1852528298055190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc61afa1c30bd149a73f3d98c57dc08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: []
+  tags: []
+  objectPrefab: {fileID: 1590020353765742, guid: cce197c98e577a04fb9fdba5716c4ff7,
+    type: 2}
+  objectSpawn: {fileID: 4174085859910014}
+  pistolPrefab: {fileID: 1394037376390460, guid: e6cb268742cf73f4c987d2079f3916b7,
+    type: 2}
+  shotgunPrefab: {fileID: 1954177606620074, guid: 332543f88ba1eee4a81e6cd13c2f06c9,
+    type: 2}
+  machine_gunPrefab: {fileID: 1465110179352908, guid: 3724bbfd275194b4ba7cb28a9d864ecc,
+    type: 2}
 --- !u!114 &114937932193565814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,15 +171,6 @@ MonoBehaviour:
   maxstamina: 100
   curr_stamina: 0
   stamina_regen: 0
-  objectPrefab: {fileID: 1590020353765742, guid: cce197c98e577a04fb9fdba5716c4ff7,
-    type: 2}
-  objectSpawn: {fileID: 4174085859910014}
-  pistolPrefab: {fileID: 1394037376390460, guid: e6cb268742cf73f4c987d2079f3916b7,
-    type: 2}
-  shotgunPrefab: {fileID: 1954177606620074, guid: 332543f88ba1eee4a81e6cd13c2f06c9,
-    type: 2}
-  machine_gunPrefab: {fileID: 1465110179352908, guid: 3724bbfd275194b4ba7cb28a9d864ecc,
-    type: 2}
 --- !u!212 &212535569608425034
 SpriteRenderer:
   m_ObjectHideFlags: 1

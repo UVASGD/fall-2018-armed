@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pl_mvmnt : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour {
 
     //Declare needed variables
     public float speed; //Declare Speed
     public float maxstamina,curr_stamina,stamina_regen;  //Declare maxstamina, current stamina, and stamina_regen
-    private List<string> inventory = new List<string>();    //Declare inventory list, which will store the objects
-    private List<string> tags = new List<string> { "object","pistol","machine_gun","shotgun" };
     private Rigidbody2D rb2d;
 
-    //Declare prefab objects
-    public GameObject objectPrefab;
-    public Transform objectSpawn;
-    public GameObject pistolPrefab;
-    public GameObject shotgunPrefab;
-    public GameObject machine_gunPrefab;
+    
 
     // Initialize variables
     void Start () {
@@ -54,7 +47,7 @@ public class pl_mvmnt : MonoBehaviour {
         {
             curr_stamina = 0;
         }
-        else if (curr_stamina > maxstamina-1)
+        else if (curr_stamina >= maxstamina)
         {
             curr_stamina = maxstamina;
         }
@@ -72,79 +65,20 @@ public class pl_mvmnt : MonoBehaviour {
         //Rotation of the Player
         Vector2 playerpos = Camera.main.WorldToViewportPoint(transform.position);   //Define Player Position
         Vector2 mousepos = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition); //Define Mouse Position
-        float angle = AngleBetweenTwoPoints(playerpos, mousepos) + 90;   //Solve for the angle between the player and mouse
+        float angle = Vector2.SignedAngle(Vector2.up, mousepos - playerpos);   //Solve for the angle between the player and mouse
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));  //Rotate Player
 
         //Check for Throwing item
-        if (Input.GetKeyDown(KeyCode.Mouse0) && inventory.Count > 0)
-        {
-            //var inst = new GameObject();
-            int a = inventory.Count;
-            print("The inventory has stuff in it");
-            print("The length of the inventory is " + a);
-            print(inventory[a - 1]);
-            //There's got to be a better way of doing this... Jared, halp plz
-            if (inventory[a - 1] == "object")  
-            {
-                var projectile = (GameObject)Instantiate(objectPrefab, objectSpawn.position, objectSpawn.rotation);
-                inventory.Remove(inventory[a - 1]);
-                projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * 6;   //Add momentum?
-            }
-            else if (inventory[a - 1] == "pistol")
-            {
-                var projectile = (GameObject)Instantiate(pistolPrefab, objectSpawn.position, objectSpawn.rotation);
-                inventory.Remove(inventory[a - 1]);
-                projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * 6;   //Add momentum?
-            }
-            else if (inventory[a - 1] == "shotgun")
-            {
-                var projectile = (GameObject)Instantiate(shotgunPrefab, objectSpawn.position, objectSpawn.rotation);
-                inventory.Remove(inventory[a - 1]);
-                projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * 6;   //Add momentum?
-            }
-            else if (inventory[a - 1] == "machine_gun")
-            {
-                var projectile = (GameObject)Instantiate(machine_gunPrefab, objectSpawn.position, objectSpawn.rotation);
-                inventory.Remove(inventory[a - 1]);
-                projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * 6;   //Add momentum?
-            }
-
-        }
+        
 
     }
-
-    //Detecting if players try to collect objects
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        //Detect if player is pulling an object towards them
-        if (tags.Contains(collision.gameObject.tag) && Input.GetKey(KeyCode.Mouse1))
-        {
-            Debug.Log("It can see it!"); //Figure out how to pull towards the player plz <3    -Past me
-        }
-    }
-
-    //Detecting if players pick up items
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        //Detect if player collects an object
-        if (tags.Contains(collision.gameObject.tag) && Input.GetKey(KeyCode.Mouse1))
-        {
-            inventory.Add(collision.gameObject.tag);
-            Destroy(collision.gameObject);
-        }
-        ////A debugging step to see if items are being added to the inventory correctly
-        //foreach (string str in inventory)
-        //{
-        //    print(str);
-        //}
-    }
-
+    // Removed because Vector2.SignedAngle is a thing - Jared, 2018/06/12
     //Function that finds the angle between two specified vector points
-    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
-    {
-        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
-    }
-  
+    //float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    //{
+    //    return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+    //}
+
 }
 
 
