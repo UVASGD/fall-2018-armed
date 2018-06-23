@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1979966380399636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4716775939994874}
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1852528298055190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 31, y: -8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4174085859910014}
@@ -147,8 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: []
   tags: []
-  objectPrefab: {fileID: 1590020353765742, guid: cce197c98e577a04fb9fdba5716c4ff7,
-    type: 2}
+  objectPrefab: {fileID: 0}
   objectSpawn: {fileID: 4174085859910014}
   pistolPrefab: {fileID: 1394037376390460, guid: e6cb268742cf73f4c987d2079f3916b7,
     type: 2}
@@ -167,10 +166,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2e4cff890a32b4ba0769bf37f72fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  maxhealth: 100
+  curr_health: 100
+  base_speed: 8
+  sprint_speed: 15
+  sprint_regen: -50
+  slow_regen: 15
+  base_regen: 25
   maxstamina: 100
-  curr_stamina: 0
-  stamina_regen: 0
 --- !u!212 &212535569608425034
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -184,6 +187,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
