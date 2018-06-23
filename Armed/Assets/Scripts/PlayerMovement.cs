@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     //Declare needed variables
-    public float speed; //Declare Speed
-    public float maxstamina,curr_stamina,stamina_regen;  //Declare maxstamina, current stamina, and stamina_regen
+    public float speed;
+    public float maxstamina,curr_stamina,stamina_regen;
+    private bool stamina_wait = false;
+    public float maxhealth, curr_health;    
     private Rigidbody2D rb2d;
 
     
@@ -20,20 +22,35 @@ public class PlayerMovement : MonoBehaviour {
     //Check for sprinting, returns speed, and lowers stamina if sprinting
     void Sprinting(ref float speed, ref float curr_stamina, ref float stamina_regen)
         {
-        if (Input.GetKey(KeyCode.LeftShift) && curr_stamina > 0) {
-            speed = 15f;
-            curr_stamina --;
-            stamina_regen = 0;
+        if (Input.GetKey(KeyCode.LeftShift) && stamina_wait == false)
+        {
+            stamina_regen = -50;
+            speed = 15f;     
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        else if(stamina_wait == true)
         {
             speed = 8f;
-            stamina_regen = 1;
+            stamina_regen = 15;
         }
         else
         {
             speed = 8f;
+            stamina_regen = 25;
         }
+
+        curr_stamina = Mathf.Clamp(curr_stamina + (stamina_regen * Time.deltaTime), 0.0f, maxstamina);
+
+        if (curr_stamina == 0)
+        {
+            stamina_wait = true;
+        }
+        else if (curr_stamina == maxstamina)
+        {
+            stamina_wait = false;
+        }
+
+        Debug.Log(curr_stamina);
+        Debug.Log(stamina_wait);
     }
 
     //Update player movement, throw items, etc. 
@@ -42,19 +59,19 @@ public class PlayerMovement : MonoBehaviour {
         //Updates speed and curr_stamina by checking for sprinting
         Sprinting(ref speed, ref curr_stamina, ref stamina_regen);
 
-        //Update Stamina
-        if (curr_stamina < 0)
-        {
-            curr_stamina = 0;
-        }
-        else if (curr_stamina >= maxstamina)
-        {
-            curr_stamina = maxstamina;
-        }
-        else
-        {
-            curr_stamina = curr_stamina + stamina_regen;
-        }
+        ////Update Stamina
+        //if (curr_stamina < 0)
+        //{
+        //    curr_stamina = 0;
+        //}
+        //else if (curr_stamina >= maxstamina)
+        //{
+        //    curr_stamina = maxstamina;
+        //}
+        //else
+        //{
+        //    curr_stamina = curr_stamina + stamina_regen;
+        //}
 
         //Movement of the Player
         float HorizontalMove = Input.GetAxis("Horizontal");
