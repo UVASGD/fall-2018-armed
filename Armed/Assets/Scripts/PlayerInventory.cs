@@ -60,7 +60,7 @@ public class PlayerInventory : MonoBehaviour {
             // https://answers.unity.com/questions/551934/instantiating-using-a-string-for-prefab-name.html
             projectile = Instantiate(Resources.Load(inventory[a - 1], typeof(GameObject)), objectSpawn.position, objectSpawn.rotation) as GameObject;
             projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * throw_speed;   //Add momentum?
-            inventory.Remove(inventory[a - 1]);
+            inventory.RemoveAt(a - 1);
 
 
         }
