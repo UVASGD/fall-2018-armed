@@ -145,9 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc61afa1c30bd149a73f3d98c57dc08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: []
   tags: []
-  objectPrefab: {fileID: 0}
+  throw_speed: 100
+  inventoryCount: 0
+  objectCount: 0
+  objectPrefab: {fileID: 1563049248261318, guid: 6141116feae55e542864420af3ac73c3,
+    type: 2}
   objectSpawn: {fileID: 4174085859910014}
   pistolPrefab: {fileID: 1394037376390460, guid: e6cb268742cf73f4c987d2079f3916b7,
     type: 2}

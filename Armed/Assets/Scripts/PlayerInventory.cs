@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour {
 
-    public List<string> inventory;
     public List<string> tags;
+    
+    public Stack<Gun>[] guns = new Stack<Gun>[3]; // Yes, this is an array of stacks of guns, the array is a fixed size though...
+    public int[] inventorySlotSizes = new int[4];
 
     public float throw_speed = 100;
 
+    public int inventoryCount;
     //Declare prefab objects
     public GameObject objectPrefab;
     public Transform objectSpawn;
@@ -16,10 +19,11 @@ public class PlayerInventory : MonoBehaviour {
     public GameObject shotgunPrefab;
     public GameObject machine_gunPrefab;
     // Use this for initialization
+    int currentObjectIndex;
     void Start () {
-        inventory = new List<string>();
         tags = new List<string> { "object", "pistol", "machine_gun", "shotgun" };
         print(tags.ToString());
+        currentObjectIndex = 0;
     }
 	
 	// Update is called once per frame
@@ -32,14 +36,10 @@ public class PlayerInventory : MonoBehaviour {
     //Throws Things
     void ThrowyBoi()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && inventory.Count > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryCount > 0)
         {
             GameObject projectile;
             //var inst = new GameObject();
-            int a = inventory.Count;
-            print("The inventory has stuff in it");
-            print("The length of the inventory is " + a);
-            print(inventory[a - 1]);
             //There's got to be a better way of doing this... Jared, halp plz
             //if (inventory[a - 1] == "object")
             //{
@@ -58,11 +58,26 @@ public class PlayerInventory : MonoBehaviour {
             //    projectile = Instantiate(machine_gunPrefab, objectSpawn.position, objectSpawn.rotation);
             //}
             // https://answers.unity.com/questions/551934/instantiating-using-a-string-for-prefab-name.html
-            projectile = Instantiate(Resources.Load(inventory[a - 1], typeof(GameObject)), objectSpawn.position, objectSpawn.rotation) as GameObject;
+            projectile = Instantiate(Resources.Load(tags[currentObjectIndex], typeof(GameObject)), objectSpawn.position, objectSpawn.rotation) as GameObject;
+            if(currentObjectIndex > 0)
+            {
+                guns[currentObjectIndex - 1].Pop();
+            }
             projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * throw_speed;   //Add momentum?
-            inventory.RemoveAt(a - 1);
-
-
+            //inventory.RemoveAt(a - 1);
+            inventoryCount--;
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (inventoryCount > 0)
+            {
+                currentObjectIndex = (currentObjectIndex + 1) % 4;
+                while(inventorySlotSizes[currentObjectIndex] <= 0)
+                {
+                    currentObjectIndex = (currentObjectIndex + 1) % 4;
+                }
+            }
+            
         }
     }
 
@@ -70,7 +85,17 @@ public class PlayerInventory : MonoBehaviour {
     //#TODO - Heat-based system Mech-Warrior style for the guns
     void ShootyBoi()
     {
-        // #TODO
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                foreach (Gun g in guns[i])
+                {
+                    g.Shoot();
+                    // Replace with currentHeat += g.Shoot(); or whatever when heat is set up
+                }
+            }
+        }
     }
 
     // Scales the player based on the inventory
@@ -99,7 +124,29 @@ public class PlayerInventory : MonoBehaviour {
         //Detect if player collects an object
         if (tags.Contains(collision.gameObject.tag) && Input.GetKey(KeyCode.Mouse1))
         {
-            inventory.Add(collision.gameObject.tag);
+            if (collision.gameObject.tag.Equals("object")){
+                inventorySlotSizes[0]++;
+            }
+            else
+            {
+                switch(collision.gameObject.tag)
+                {
+                    case "pistol":
+                        guns[0].Push(new Pistol());
+                        inventorySlotSizes[1]++;
+                        break;
+                    case "machine_gun":
+                        guns[1].Push(new MachineGun());
+                        inventorySlotSizes[2]++;
+                        break;
+                    case "shotgun":
+                        guns[2].Push(new ShotGun());
+                        inventorySlotSizes[3]++;
+                        break;
+                }
+
+            }
+            inventoryCount++;
             Destroy(collision.gameObject);
         }
         ////A debugging step to see if items are being added to the inventory correctly

@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Gun : MonoBehaviour {
+abstract public class Gun {
 
-    float cooldownTime;
-    float currentCooldown;
+    public float cooldownTime;
+    public float currentCooldown;
     float heatPerShot;
 
-    public void Shoot()
+    // Returns the heat of the gun for the inventory to add
+    public float Shoot()
     {
         if(currentCooldown >= cooldownTime)
         {
             MyShoot();
+            return heatPerShot;
         }
+            return 0;
     }
 
     public void IncrementCooldown(float increment)
