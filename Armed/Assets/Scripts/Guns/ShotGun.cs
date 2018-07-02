@@ -2,7 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotGun : Gun {
+public class Shotgun : Gun {
+
+    // Constructor with Base Stats
+    public Shotgun()
+    {
+
+    }
+    public Shotgun(float coolDownMax, float heatOutput)
+    {
+        cooldownTime = coolDownMax;
+        heatPerShot = heatOutput;
+    }
 
     public override void MyShoot()
     {

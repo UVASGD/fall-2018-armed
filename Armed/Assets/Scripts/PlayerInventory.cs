@@ -140,7 +140,7 @@ public class PlayerInventory : MonoBehaviour {
                         inventorySlotSizes[2]++;
                         break;
                     case "shotgun":
-                        guns[2].Push(new ShotGun());
+                        guns[2].Push(new Shotgun());
                         inventorySlotSizes[3]++;
                         break;
                 }

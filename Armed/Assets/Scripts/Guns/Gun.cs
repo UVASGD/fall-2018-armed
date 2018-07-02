@@ -6,13 +6,14 @@ abstract public class Gun {
 
     public float cooldownTime;
     public float currentCooldown;
-    float heatPerShot;
+    protected float heatPerShot;
 
     // Returns the heat of the gun for the inventory to add
     public float Shoot()
     {
         if(currentCooldown >= cooldownTime)
         {
+            currentCooldown = 0;
             MyShoot();
             return heatPerShot;
         }
@@ -31,5 +32,5 @@ abstract public class Gun {
             currentCooldown = cooldownTime;
         }
     }
-    abstract public void MyShoot(); // How each kind of gun shoots
+    abstract public void MyShoot(); // How each kind of gun shoots, implemented in the specific weapon type
 }
