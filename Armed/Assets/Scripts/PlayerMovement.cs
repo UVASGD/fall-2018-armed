@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     private float curr_stamina, stamina_regen;
     private bool stamina_wait = false;
 
-    public float maxhealth, curr_health;
     public float base_speed, sprint_speed;
     public float sprint_regen, slow_regen, base_regen;
     public float maxstamina;
