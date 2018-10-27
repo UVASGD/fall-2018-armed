@@ -20,12 +20,12 @@ public class GunManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown("Fire"))
+		if (Input.GetButtonDown("Fire1"))
         {
             currHeat = Mathf.Clamp(currHeat - numGuns * heatDecreaseRatePerGun * Time.deltaTime, 0, maxHeat);
-            for (int x = 0; x < numGuns; x++)
-            {
-                //Fire the gun from a specific location
+            //Fire the gun from a specific location
+            foreach (Transform child in gunHolder.transform) {
+                child.GetComponent<Gun>().Shoot();
             }
         }
         else
