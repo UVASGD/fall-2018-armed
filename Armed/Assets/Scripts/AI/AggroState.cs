@@ -6,7 +6,7 @@ public class AggroState : AIState {
 
 
 	override
-    public void MoveBasedOnState(Vector3 currentPosition)
+    public void MoveBasedOnState(Vector3 targetMove, float speed, Navpoint targetPoint)
     {
 
     }
