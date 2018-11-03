@@ -85,17 +85,17 @@ public class PlayerInventory : MonoBehaviour {
     //#TODO - Heat-based system Mech-Warrior style for the guns
     void ShootyBoi()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                foreach (Gun g in guns[i])
-                {
-                    g.Shoot();
-                    // Replace with currentHeat += g.Shoot(); or whatever when heat is set up
-                }
-            }
-        }
+        //if (Input.GetKey(KeyCode.Mouse0))
+        //{
+        //    for (int i = 0; i < 3; i++)
+        //    {
+        //        foreach (Gun g in guns[i])
+        //        {
+        //            g.Shoot();
+        //            // Replace with currentHeat += g.Shoot(); or whatever when heat is set up
+        //        }
+        //    }
+        //}
     }
 
     // Scales the player based on the inventory

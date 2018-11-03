@@ -350,8 +350,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavmeshHolder: {fileID: 0}
-  start: {fileID: 0}
-  end: {fileID: 0}
+  speed: 0
+  targetPoint: {fileID: 0}
+  targetMove: {x: 0, y: 0, z: 0}
+  currState: {fileID: 0}
 --- !u!212 &371392994
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1620,6 +1622,16 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 5.44
       objectReference: {fileID: 0}
+    - target: {fileID: 114754457162318804, guid: 03d15c38d93ad4942b1835c01f0291a3,
+        type: 2}
+      propertyPath: cooldownTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114754457162318804, guid: 03d15c38d93ad4942b1835c01f0291a3,
+        type: 2}
+      propertyPath: numBullets
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d15c38d93ad4942b1835c01f0291a3, type: 2}
   m_IsPrefabAsset: 0
@@ -1641,7 +1653,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHeat: 0
   currHeat: 0
-  numGuns: 0
   heatDecreaseRatePerGun: 0
   heatIncreaseRate: 0
   gunDistAngle: 60
@@ -1890,6 +1901,16 @@ Prefab:
     - target: {fileID: 4167224789087998, guid: 03d15c38d93ad4942b1835c01f0291a3, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -19.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 114754457162318804, guid: 03d15c38d93ad4942b1835c01f0291a3,
+        type: 2}
+      propertyPath: cooldownTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114754457162318804, guid: 03d15c38d93ad4942b1835c01f0291a3,
+        type: 2}
+      propertyPath: numBullets
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d15c38d93ad4942b1835c01f0291a3, type: 2}
