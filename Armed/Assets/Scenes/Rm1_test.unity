@@ -350,8 +350,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavmeshHolder: {fileID: 0}
-  start: {fileID: 0}
-  end: {fileID: 0}
+  speed: 0
+  targetPoint: {fileID: 0}
+  targetMove: {x: 0, y: 0, z: 0}
+  currState: {fileID: 0}
 --- !u!212 &371392994
 SpriteRenderer:
   m_ObjectHideFlags: 0
