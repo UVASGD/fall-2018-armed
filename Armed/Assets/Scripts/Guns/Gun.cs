@@ -4,36 +4,30 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour {
 
-    public float cooldownTime;
-    public float currentCooldown;
+    public float cooldownTime = 30f;
+    public float currentCooldown = 0;
     protected float heatPerShot;
+    public int numBullets = 30;
 
     public Transform bullet;
 
-    // Returns the heat of the gun for the inventory to add
-    public float Shoot()
+    void Update()
+    {
+        this.currentCooldown += Time.deltaTime;
+    }
+
+        // Returns the heat of the gun for the inventory to add
+    public bool Shoot()
     {
         if(currentCooldown >= cooldownTime)
         {
             currentCooldown = 0;
             InstantiateBullet();
-            return heatPerShot;
+            return true;
         }
-            return 0;
+        return false;
     }
 
-    public void IncrementCooldown(float increment)
-    {
-        if (increment <= 0)
-        {
-            throw new System.Exception("Cooldown Increment must be greater than zero.");
-        }
-        currentCooldown += increment;
-        if (currentCooldown > cooldownTime)
-        {
-            currentCooldown = cooldownTime;
-        }
-    }
     public void InstantiateBullet() {
         Vector3 offset = this.transform.right;
         Object.Instantiate(

@@ -4,8 +4,7 @@ using UnityEngine;
 
 abstract public class AIState : MonoBehaviour {
 
+    protected EnemyMovement currEnemy;
 
-	
-    abstract public void MoveBasedOnState(Vector3 targetMove, float speed, Navpoint targetPoint);
-
+    abstract public void MoveBasedOnState();
 }
