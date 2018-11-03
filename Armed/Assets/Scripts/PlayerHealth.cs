@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
 
     public float maxhealth, curr_health;
-    public float tier1health, tier2health;
+    public float tier1health, tier2health, tier3health, tier4health, tier5health;
     public float health_percent;
     private float scale;
     private PlayerInventory inventory;
@@ -17,7 +17,8 @@ public class PlayerHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // Scale the player
-        calculateScale();
+        // change to only happen when inventory calls it
+        //calculateScale();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -25,12 +26,11 @@ public class PlayerHealth : MonoBehaviour {
         // Handle Bullets
     }
 
-    public void calculateScale()
+    public void calculateScale(int form)
     {
-        int numItems = inventory.inventoryCount;
         // Changes health based on amount of items in inventory
         // todo: movement speed inverse to inventory, player size increases as inventory increases
-        switch(numItems)
+        switch(form)
         {
             // Changes health and max health based on the number of items in your inventory
             // At breakpoints of 3 and 4 items, will change maxhealth and then scale current health based on the percent of maxhealth you previously had
@@ -38,23 +38,29 @@ public class PlayerHealth : MonoBehaviour {
                 maxhealth = tier1health;
                 break;
             case 1:
+                health_percent = curr_health / maxhealth;
                 maxhealth = tier1health;
+                curr_health = maxhealth * health_percent;
                 break;
             case 2:
-                maxhealth = tier1health;
+                health_percent = curr_health / maxhealth;
+                maxhealth = tier2health;
+                curr_health = maxhealth * health_percent;
                 break;
             case 3:
                 health_percent = curr_health / maxhealth;
-                maxhealth = tier1health;
+                maxhealth = tier3health;
                 curr_health = maxhealth * health_percent;
                 break;
             case 4:
                 health_percent = curr_health / maxhealth;
-                maxhealth = tier2health;
+                maxhealth = tier4health;
                 curr_health = maxhealth * health_percent;
                 break;
             case 5:
-                maxhealth = tier2health;
+                health_percent = curr_health / maxhealth;
+                maxhealth = tier5health;
+                curr_health = maxhealth * health_percent;
                 break;
             default:
                 break;

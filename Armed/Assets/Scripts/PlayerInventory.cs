@@ -14,6 +14,7 @@ public class PlayerInventory : MonoBehaviour {
     // Managing max elements in inventory
     public bool inventory_full = false;
     public int max_inventory_items = 25;
+    public int formNum;
 
     public int inventoryCount;
     //Declare prefab objects
@@ -22,12 +23,17 @@ public class PlayerInventory : MonoBehaviour {
     public GameObject pistolPrefab;
     public GameObject shotgunPrefab;
     public GameObject machine_gunPrefab;
+
+    PlayerMovement movement;
+    PlayerHealth health;
     // Use this for initialization
     int currentObjectIndex;
     void Start () {
         tags = new List<string> { "object", "pistol", "machine_gun", "shotgun" };
         print(tags.ToString());
         currentObjectIndex = 0;
+        movement = GetComponent<PlayerMovement>();
+        health = GetComponent<PlayerHealth>();
     }
 	
 	// Update is called once per frame
@@ -69,6 +75,13 @@ public class PlayerInventory : MonoBehaviour {
             projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * throw_speed;   //Add momentum?
             //inventory.RemoveAt(a - 1);
             inventoryCount--;
+            if (inventoryCount == 4 || inventoryCount == 9 || inventoryCount == 14 || inventoryCount == 19)
+            {
+                formNum--;
+                health.calculateScale(formNum);
+                movement.calculateMovementSpeed(formNum);
+                // call health and movement
+            }
             inventory_full = false;
         }
         if (Input.GetKeyDown(KeyCode.P))
@@ -141,6 +154,12 @@ public class PlayerInventory : MonoBehaviour {
 
             }
             inventoryCount++;
+            if (inventoryCount == 5 || inventoryCount == 10 || inventoryCount == 15 || inventoryCount == 20)
+            {
+                formNum++;
+                health.calculateScale(formNum);
+                movement.calculateMovementSpeed(formNum);
+            }
             if (inventoryCount == max_inventory_items)
             {
                 inventory_full = true;

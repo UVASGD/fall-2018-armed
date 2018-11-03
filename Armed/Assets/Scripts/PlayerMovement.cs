@@ -14,15 +14,23 @@ public class PlayerMovement : MonoBehaviour
     public float sprint_regen, slow_regen, base_regen;
     public float maxstamina;
 
+    public float speedtier1, speedtier2, speedtier3, speedtier4, speedtier5;
+    public float speedtierdelta = .7f;
+
     private Rigidbody2D rb2d;
 
-
+    private PlayerInventory inventory;
 
     // Initialize variables
     void Start()
     {
         curr_stamina = maxstamina;
         rb2d = GetComponent<Rigidbody2D>(); //Get Rigidbody
+        speedtier1 = 10.3f;
+        speedtier2 = speedtier1 * speedtierdelta;
+        speedtier3 = speedtier2 * speedtierdelta;
+        speedtier4 = speedtier3 * speedtierdelta;
+        speedtier5 = speedtier4 * speedtierdelta;
     }
 
     //Check for sprinting, returns speed, and lowers stamina if sprinting
@@ -80,5 +88,32 @@ public class PlayerMovement : MonoBehaviour
         //Check for Throwing item
 
 
+    }
+
+    public void calculateMovementSpeed(int form)
+    {
+        switch(form)
+        {
+            case 0:
+                base_speed = speedtier1;
+                break;
+            case 1:
+                base_speed = speedtier1;
+                break;
+            case 2:
+                base_speed = speedtier2;
+                break;
+            case 3:
+                base_speed = speedtier3;
+                break;
+            case 4:
+                base_speed = speedtier4;
+                break;
+            case 5:
+                base_speed = speedtier5;
+                break;
+            default:
+                break;
+        }
     }
 }
