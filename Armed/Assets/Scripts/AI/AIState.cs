@@ -6,6 +6,6 @@ abstract public class AIState : MonoBehaviour {
 
 
 	
-    abstract public void MoveBasedOnState(Vector3 currentPosition);
+    abstract public void MoveBasedOnState(Vector3 targetMove, float speed, Navpoint targetPoint);
 
 }
