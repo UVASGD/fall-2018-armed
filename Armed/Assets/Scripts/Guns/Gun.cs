@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour {
+abstract public class Gun {
 
     public float cooldownTime;
     public float currentCooldown;
     protected float heatPerShot;
-
-    public Transform bullet;
 
     // Returns the heat of the gun for the inventory to add
     public float Shoot()
@@ -16,7 +14,7 @@ public class Gun : MonoBehaviour {
         if(currentCooldown >= cooldownTime)
         {
             currentCooldown = 0;
-            InstantiateBullet();
+            MyShoot();
             return heatPerShot;
         }
             return 0;
@@ -34,15 +32,5 @@ public class Gun : MonoBehaviour {
             currentCooldown = cooldownTime;
         }
     }
-    public void InstantiateBullet() {
-        Vector3 offset = this.transform.right;
-        Object.Instantiate(
-            bullet,
-            new Vector3(
-                this.transform.position.x + this.transform.right.x,
-                this.transform.position.y + this.transform.right.y,
-                this.transform.position.z + this.transform.right.z),
-            this.transform.rotation
-        );
-    }
+    abstract public void MyShoot(); // How each kind of gun shoots, implemented in the specific weapon type
 }

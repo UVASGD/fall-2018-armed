@@ -5,10 +5,8 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour {
 
     public GameObject NavmeshHolder;
-    public float speed;
-    public Navpoint targetPoint;
-    public Vector3 targetMove;
-    public AIState currState;
+    public Navpoint start;
+    public Navpoint end;
 
 	// Use this for initialization
 	void Start () {
@@ -26,13 +24,12 @@ public class EnemyMovement : MonoBehaviour {
             }
         }
 
-        targetPoint = transforms[minIndex].GetComponent<Navpoint>();
-        targetMove = targetPoint.transform.position;
-        currState = new PatrolState();
+        start = transforms[minIndex].GetComponent<Navpoint>();
+        end = transforms[Random.Range(0, numNavpoints)].GetComponent<Navpoint>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        currState.MoveBasedOnState(targetMove, speed, targetPoint);
-    }  
+		
+	}
 }

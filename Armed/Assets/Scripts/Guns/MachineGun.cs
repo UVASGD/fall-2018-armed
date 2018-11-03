@@ -15,8 +15,8 @@ public class MachineGun : Gun {
         heatPerShot = heatOutput;
     }
 
-    //public override void MyShoot()
-    //{
-    //    throw new System.Exception("Not Implemented (yet)");
-    //}
+    public override void MyShoot()
+    {
+        throw new System.Exception("Not Implemented (yet)");
+    }
 }
