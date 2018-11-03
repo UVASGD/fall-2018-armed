@@ -11,6 +11,10 @@ public class PlayerInventory : MonoBehaviour {
 
     public float throw_speed = 100;
 
+    // Managing max elements in inventory
+    public bool inventory_full = false;
+    public int max_inventory_items = 25;
+
     public int inventoryCount;
     //Declare prefab objects
     public GameObject objectPrefab;
@@ -29,7 +33,6 @@ public class PlayerInventory : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         ThrowyBoi();
-        ScaleyBoi();
         ShootyBoi();
     }
 
@@ -66,6 +69,7 @@ public class PlayerInventory : MonoBehaviour {
             projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * throw_speed;   //Add momentum?
             //inventory.RemoveAt(a - 1);
             inventoryCount--;
+            inventory_full = false;
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -98,16 +102,6 @@ public class PlayerInventory : MonoBehaviour {
         }
     }
 
-    // Scales the player based on the inventory
-    void ScaleyBoi()
-    {
-        // 4 tiers
-        // Add 50 health
-        //#TODO
-        // Also different sized sprites
-    }
-
-
     //Detecting if players try to collect objects
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -122,7 +116,7 @@ public class PlayerInventory : MonoBehaviour {
     private void OnCollisionStay2D(Collision2D collision)
     {
         //Detect if player collects an object
-        if (tags.Contains(collision.gameObject.tag) && Input.GetKey(KeyCode.Mouse1))
+        if (tags.Contains(collision.gameObject.tag) && Input.GetKey(KeyCode.Mouse1) && !inventory_full)
         {
             if (collision.gameObject.tag.Equals("object")){
                 inventorySlotSizes[0]++;
@@ -147,6 +141,10 @@ public class PlayerInventory : MonoBehaviour {
 
             }
             inventoryCount++;
+            if (inventoryCount == max_inventory_items)
+            {
+                inventory_full = true;
+            }
             Destroy(collision.gameObject);
         }
         ////A debugging step to see if items are being added to the inventory correctly
