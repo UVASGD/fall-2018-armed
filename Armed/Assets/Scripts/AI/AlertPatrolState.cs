@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class AlertPatrolState : AIState {
 
-    override
-    public void MoveBasedOnState(Vector3 targetMove, float speed, Navpoint targetPoint)
-    {
+    float endTime;
 
+    public AlertPatrolState(EnemyMovement enemy)
+    {
+        currEnemy = enemy;
+        endTime = Time.time + enemy.AlertPatrolTime;
+    }
+
+    override
+    public void MoveBasedOnState()
+    {
+        print("I'm kinda scared :'(");
+        if (Time.time > endTime)
+        {
+            currEnemy.setState(new PatrolState(currEnemy));
+        }
     }
 }
