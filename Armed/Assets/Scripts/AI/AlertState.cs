@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolState : AIState {
+public class AlertState : AIState {
 
-    public PatrolState(EnemyMovement enemy)
+    float endTime;
+
+    public AlertState(EnemyMovement enemy)
     {
         currEnemy = enemy;
+        endTime = Time.time + enemy.AlertPatrolTime;
     }
 
     override
     public void MoveBasedOnState()
     {
-        print("I'm pretty happy :)");
+        print("I'm kinda scared :'(");
         if (Vector3.Distance(currEnemy.transform.position, currEnemy.targetMove) < .1)
         {
-            currEnemy.targetPoint = currEnemy.patrolPoints[currEnemy.currPoint++ % currEnemy.patrolPoints.Count];
+            List<Navpoint> nextPoint = currEnemy.targetPoint.nearest;
+            currEnemy.targetPoint = nextPoint[Random.Range(0, nextPoint.Count)];
             Vector3 rand = Random.insideUnitCircle;
             currEnemy.targetMove = currEnemy.targetPoint.transform.position + rand;
             float angle = Vector2.SignedAngle(Vector2.up, currEnemy.targetMove - currEnemy.transform.position);
@@ -27,29 +31,34 @@ public class PatrolState : AIState {
 
         // Move our position a step closer to the target.
         currEnemy.transform.position = Vector3.MoveTowards(currEnemy.transform.position, currEnemy.targetMove, step);
-    }
 
-    public override void StateExit()
-    {
-        throw new System.NotImplementedException();
+        if (Time.time > endTime)
+        {
+            currEnemy.setState(new BackToPatrolState(currEnemy));
+        }
     }
 
     public override void StateEnter()
     {
-        List<Navpoint> nextPoint = currEnemy.patrolPoints;
+        int numNavpoints = currEnemy.NavmeshHolder.transform.childCount;
+        Transform[] transforms = currEnemy.NavmeshHolder.GetComponentsInChildren<Transform>();
         double minDist = Mathf.Infinity;
         int minIndex = -1;
-        for (int x = 0; x < nextPoint.Count; x++)
+        for (int x = 0; x < numNavpoints; x++)
         {
-            double currDist = Vector3.SqrMagnitude(currEnemy.transform.position - nextPoint[x].transform.position);
+            double currDist = Vector3.Distance(transform.position, transforms[x].position);
             if (currDist < minDist)
             {
                 minDist = currDist;
                 minIndex = x;
             }
         }
-        currEnemy.targetPoint = nextPoint[minIndex];
+        currEnemy.targetPoint = transforms[minIndex].GetComponent<Navpoint>();
         currEnemy.targetMove = currEnemy.targetPoint.transform.position;
-        currEnemy.currPoint = minIndex;
+    }
+
+    public override void StateExit()
+    {
+        throw new System.NotImplementedException();
     }
 }

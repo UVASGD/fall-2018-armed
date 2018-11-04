@@ -7,4 +7,6 @@ abstract public class AIState : MonoBehaviour {
     protected EnemyMovement currEnemy;
 
     abstract public void MoveBasedOnState();
+    abstract public void StateExit();
+    abstract public void StateEnter();
 }
