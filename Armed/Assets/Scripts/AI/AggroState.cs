@@ -16,10 +16,20 @@ public class AggroState : AIState {
     public void MoveBasedOnState()
     {
         print("IM ANGRY :(");
+
         if (Time.time > endTime)
         {
-            currEnemy.setState(new AlertPatrolState(currEnemy));
+            currEnemy.setState(new AlertState(currEnemy));
         }
     }
 
+    public override void StateEnter()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void StateExit()
+    {
+        throw new System.NotImplementedException();
+    }
 }

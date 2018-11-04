@@ -4,38 +4,46 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
 
+    public GameObject player;
     public GameObject NavmeshHolder;
-    public float speed;
+
+    public List<Navpoint> patrolPoints;
     public Navpoint targetPoint;
     public Vector3 targetMove;
-    public AIState currState;
-    public GameObject player;
-    public float coneOfVisionAngle = 30;
-    public float coneOfVisionDist = 100;
+    public int currPoint;
 
+    public AIState currState;
     public float AggroTime = 10;
     public float AlertPatrolTime = 10;
+    public float coneOfVisionAngle = 30;
+    public float coneOfVisionDist = 100;
+    public float speed = 2;
 
-	// Use this for initialization
-	void Start () {
-        int numNavpoints = NavmeshHolder.transform.childCount;
-        Transform[] transforms = NavmeshHolder.GetComponentsInChildren<Transform>();
-        double minDist = Mathf.Infinity;
-        int minIndex = -1;
-        for (int x = 0; x < numNavpoints; x++)
+
+    // Use this for initialization
+    void Start () {
+        player = GameObject.Find("Player");
+        NavmeshHolder = GameObject.Find("Navmesh");
+        if (patrolPoints.Count == 0)
         {
-            double currDist = Vector3.Distance(transform.position, transforms[x].position);
-            if (currDist < minDist)
+            Navpoint[] availablePoints = NavmeshHolder.GetComponentsInChildren<Navpoint>();
+            SortedList toChooseFrom = new SortedList();
+            for (int x = 0; x < availablePoints.Length; x++)
             {
-                minDist = currDist;
-                minIndex = x;
+                toChooseFrom.Add(-Vector3.SqrMagnitude(availablePoints[x].transform.position - transform.position), availablePoints[x]);
+            }
+            patrolPoints.Add((Navpoint)toChooseFrom.GetByIndex(0));
+            for (int x = 0; x < 2; x++)
+            {
+                int randInt = Random.Range(0, patrolPoints[x].nearest.Count);
+                patrolPoints.Add(patrolPoints[x].nearest[randInt]);
+            }
+            for (int x = 0; x < 2; x++)
+            {
+                patrolPoints.Add(patrolPoints[2 - x - 1]);
             }
         }
-
-        targetPoint = transforms[minIndex].GetComponent<Navpoint>();
-        targetMove = targetPoint.transform.position;
-        currState = new PatrolState(this);
-        player = GameObject.Find("Player");
+        setState(new PatrolState(this));
 	}
 	
 	// Update is called once per frame
@@ -64,6 +72,9 @@ public class EnemyMovement : MonoBehaviour {
 
     public void setState(AIState newState)
     {
+        if (currState != null)
+            currState.StateExit();
         currState = newState;
+        currState.StateEnter();
     }
 }

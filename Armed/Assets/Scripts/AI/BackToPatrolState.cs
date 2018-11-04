@@ -2,22 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolState : AIState {
+public class BackToPatrolState : AIState
+{
 
-    public PatrolState(EnemyMovement enemy)
+    public BackToPatrolState(EnemyMovement enemy)
     {
         currEnemy = enemy;
     }
 
-    override
-    public void MoveBasedOnState()
+    public override void MoveBasedOnState()
     {
-        print("I'm pretty happy :)");
         if (Vector3.Distance(currEnemy.transform.position, currEnemy.targetMove) < .1)
         {
-            currEnemy.targetPoint = currEnemy.patrolPoints[currEnemy.currPoint++ % currEnemy.patrolPoints.Count];
+            List<Navpoint> nextPoint = currEnemy.targetPoint.nearest;
+            SortedList toChooseFrom = new SortedList();
+            for (int x = 0; x < nextPoint.Count; x++)
+            {
+                toChooseFrom.Add(-Vector3.SqrMagnitude(nextPoint[x].transform.position - currEnemy.patrolPoints[0].transform.position), nextPoint[x]);
+            }
+            currEnemy.targetPoint = (Navpoint)toChooseFrom.GetByIndex(0);
             Vector3 rand = Random.insideUnitCircle;
             currEnemy.targetMove = currEnemy.targetPoint.transform.position + rand;
+
+            if (currEnemy.patrolPoints.Contains(currEnemy.targetPoint))
+            {
+                currEnemy.currPoint = currEnemy.patrolPoints.IndexOf(currEnemy.targetPoint);
+                currEnemy.setState(new PatrolState(currEnemy));
+            }
             float angle = Vector2.SignedAngle(Vector2.up, currEnemy.targetMove - currEnemy.transform.position);
             currEnemy.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));  //Rotate Player
         }
@@ -29,27 +40,13 @@ public class PatrolState : AIState {
         currEnemy.transform.position = Vector3.MoveTowards(currEnemy.transform.position, currEnemy.targetMove, step);
     }
 
-    public override void StateExit()
+    public override void StateEnter()
     {
         throw new System.NotImplementedException();
     }
 
-    public override void StateEnter()
+    public override void StateExit()
     {
-        List<Navpoint> nextPoint = currEnemy.patrolPoints;
-        double minDist = Mathf.Infinity;
-        int minIndex = -1;
-        for (int x = 0; x < nextPoint.Count; x++)
-        {
-            double currDist = Vector3.SqrMagnitude(currEnemy.transform.position - nextPoint[x].transform.position);
-            if (currDist < minDist)
-            {
-                minDist = currDist;
-                minIndex = x;
-            }
-        }
-        currEnemy.targetPoint = nextPoint[minIndex];
-        currEnemy.targetMove = currEnemy.targetPoint.transform.position;
-        currEnemy.currPoint = minIndex;
+        throw new System.NotImplementedException();
     }
 }
