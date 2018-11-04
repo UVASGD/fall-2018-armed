@@ -45,7 +45,9 @@ public class PlayerInventory : MonoBehaviour {
     //Throws Things
     void ThrowyBoi()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryCount > 0)
+        // If key is pressed, checks to make sure inventory has enough items
+        // Lowest amount of items you can have is 2
+        if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryCount > 3)
         {
             GameObject projectile;
             //var inst = new GameObject();
@@ -74,13 +76,14 @@ public class PlayerInventory : MonoBehaviour {
             }
             projectile.GetComponent<Rigidbody2D>().velocity = projectile.transform.up * throw_speed;   //Add momentum?
             //inventory.RemoveAt(a - 1);
+            // Decrements inventory count and then updates health and movement if
+            // crossed form threshold
             inventoryCount--;
             if (inventoryCount == 4 || inventoryCount == 9 || inventoryCount == 14 || inventoryCount == 19)
             {
                 formNum--;
                 health.calculateHealth(formNum);
                 movement.calculateMovementSpeed(formNum);
-                // call health and movement
             }
             inventory_full = false;
         }
@@ -153,6 +156,8 @@ public class PlayerInventory : MonoBehaviour {
                 }
 
             }
+            // Increments inventory count and then updates health and movement if 
+            // have enough guns to reach next form
             inventoryCount++;
             if (inventoryCount == 5 || inventoryCount == 10 || inventoryCount == 15 || inventoryCount == 20)
             {

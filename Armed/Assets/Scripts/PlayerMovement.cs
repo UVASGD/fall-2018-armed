@@ -5,21 +5,28 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    //Declare needed variables
+    // Variables which movement is directly affected by and which
+    // will be constantly updated by the next set of variables
     private float speed;
     private float curr_stamina, stamina_regen;
     private bool stamina_wait = false;
 
+    // Normal and sprinting movement speeds, will be updated using speedX variables
     public float base_speed, sprint_speed;
+    // Sprinting variables used to adjust when and how often you can sprint
     public float sprint_regen, slow_regen, base_regen;
     public float maxstamina;
 
+    // Speeds for all the different speedtiers
     public float speedtier1, speedtier2, speedtier3, speedtier4, speedtier5;
+    // Speed modifier as you increase form number
     public float speedtierdelta = .7f;
+    // Percent increase in speed when sprinting
+    public float sprintdelta;
 
     private Rigidbody2D rb2d;
 
-    private PlayerInventory inventory;
+    // Removed inventory access since not used
 
     // Initialize variables
     void Start()
@@ -36,16 +43,19 @@ public class PlayerMovement : MonoBehaviour
     //Check for sprinting, returns speed, and lowers stamina if sprinting
     void Sprinting(ref float speed, ref float curr_stamina, ref float stamina_regen)
     {
+        // Sprints if sprint key held and sufficient stamina
         if (Input.GetKey(KeyCode.LeftShift) && stamina_wait == false)
         {
             stamina_regen = sprint_regen;
             speed = sprint_speed;
         }
+        // Tried to sprint but not enough stamina
         else if (stamina_wait == true)
         {
             speed = base_speed;
             stamina_regen = slow_regen;
         }
+        // Not sprinting and stamina regen is normal
         else
         {
             speed = base_speed;
@@ -92,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void calculateMovementSpeed(int form)
     {
+        // Calculates base and sprinting speeds based on the form number
         switch(form)
         {
             case 0:
@@ -115,5 +126,8 @@ public class PlayerMovement : MonoBehaviour
             default:
                 break;
         }
+        // Sprint speed is set as at the new base speed times the sprinting modifier
+        // which is a constant percent increase
+        sprint_speed = base_speed * sprintdelta;
     }
 }
