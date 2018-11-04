@@ -78,7 +78,7 @@ public class PlayerInventory : MonoBehaviour {
             if (inventoryCount == 4 || inventoryCount == 9 || inventoryCount == 14 || inventoryCount == 19)
             {
                 formNum--;
-                health.calculateScale(formNum);
+                health.calculateHealth(formNum);
                 movement.calculateMovementSpeed(formNum);
                 // call health and movement
             }
@@ -157,7 +157,7 @@ public class PlayerInventory : MonoBehaviour {
             if (inventoryCount == 5 || inventoryCount == 10 || inventoryCount == 15 || inventoryCount == 20)
             {
                 formNum++;
-                health.calculateScale(formNum);
+                health.calculateHealth(formNum);
                 movement.calculateMovementSpeed(formNum);
             }
             if (inventoryCount == max_inventory_items)

@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour {
         // Handle Bullets
     }
 
-    public void calculateScale(int form)
+    public void calculateHealth(int form)
     {
         // Changes health based on amount of items in inventory
         // todo: movement speed inverse to inventory, player size increases as inventory increases
