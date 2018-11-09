@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour {
     public float tier1health, tier2health, tier3health, tier4health, tier5health;
     public float health_percent;
     private float scale;
+    private float scale1, scale2, scale3, scale4, scale5;
     private PlayerInventory inventory;
     // Use this for initialization
     void Start () {
@@ -41,31 +42,35 @@ public class PlayerHealth : MonoBehaviour {
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier1health;
                 curr_health = maxhealth * health_percent;
+                scale = scale1;
                 break;
             case 2:
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier2health;
                 curr_health = maxhealth * health_percent;
+                scale = scale2;
                 break;
             case 3:
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier3health;
                 curr_health = maxhealth * health_percent;
+                scale = scale3;
                 break;
             case 4:
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier4health;
                 curr_health = maxhealth * health_percent;
+                scale = scale4;
                 break;
             case 5:
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier5health;
                 curr_health = maxhealth * health_percent;
+                scale = scale5;
                 break;
             default:
                 break;
         }
-        scale = 1;
         transform.localScale = new Vector3(scale, scale, transform.localScale.z);
     }
 }
