@@ -12,7 +12,7 @@ public class GunManager : MonoBehaviour {
     public GameObject gunHolder;
     public int numGuns;
     public float reloadProgress;
-    private float reloadProgressComplete = 0;
+    private float reloadProgressComplete = 1;
     private int maxBullets;
     public int numBullets;
     public int shotsPerVolley;

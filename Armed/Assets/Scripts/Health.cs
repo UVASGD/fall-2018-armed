@@ -31,6 +31,9 @@ public class Health : MonoBehaviour
     private void TakeBulletDamage() {
         if (currentHealth - bulletDamage < 0) {
             currentHealth = 0;
+            foreach (Transform child in gameObject.transform) {
+                child.transform.parent = null;
+            }
             Destroy(gameObject);
         } else {
             currentHealth -= bulletDamage;

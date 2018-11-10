@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
 
     public float maxhealth, curr_health;
-    public float tier1health = 60;
-    public float tier2health = 80;
-    public float tier3health = 100;
-    public float tier4health = 120;
-    public float tier5health = 140;
+    float tier1health = 60;
+    float tier2health = 80;
+    float tier3health = 100;
+    float tier4health = 120;
+    float tier5health = 140;
     public float health_percent;
     private float scale;
     // Scaler should be under 1 for scaling scripts to work properly
