@@ -18,11 +18,13 @@ public class PlayerMovement : MonoBehaviour
     public float maxstamina;
 
     // Speeds for all the different speedtiers
-    public float speedtier1, speedtier2, speedtier3, speedtier4, speedtier5;
-    // Speed modifier as you increase form number
-    public float speedtierdelta = .7f;
+    public float speedtier1 = 10.3f;
+    public float speedtier2 = 8f;
+    public float speedtier3 = 5.6f;
+    public float speedtier4 = 3.92f;
+    public float speedtier5 = 2.75f;
     // Percent increase in speed when sprinting
-    public float sprintdelta;
+    public float sprintdelta = 1.5f;
 
     private Rigidbody2D rb2d;
 
@@ -33,11 +35,6 @@ public class PlayerMovement : MonoBehaviour
     {
         curr_stamina = maxstamina;
         rb2d = GetComponent<Rigidbody2D>(); //Get Rigidbody
-        speedtier1 = 10.3f;
-        speedtier2 = speedtier1 * speedtierdelta;
-        speedtier3 = speedtier2 * speedtierdelta;
-        speedtier4 = speedtier3 * speedtierdelta;
-        speedtier5 = speedtier4 * speedtierdelta;
     }
 
     //Check for sprinting, returns speed, and lowers stamina if sprinting
