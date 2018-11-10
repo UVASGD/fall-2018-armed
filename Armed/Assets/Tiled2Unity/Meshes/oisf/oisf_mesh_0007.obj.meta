@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
 guid: 9a6b2f6abc1d0439c933d5f56d015688
-=======
-guid: 2ce2bab554c29f84ca8809a174a8c394
->>>>>>> Stashed changes
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -11,9 +7,11 @@ ModelImporter:
     100002: //RootNode
     400000: oisf_mesh_0007
     400002: //RootNode
+    2100000: oisf_mesh_0007Mat
     2300000: oisf_mesh_0007
     3300000: oisf_mesh_0007
     4300000: oisf_mesh_0007
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -66,7 +64,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

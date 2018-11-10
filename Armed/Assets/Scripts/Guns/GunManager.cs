@@ -21,9 +21,14 @@ public class GunManager : MonoBehaviour {
     private float timeSinceLastVolley;
     public int currentGun;
 
+    private PlayerHealth health;
+    private PlayerMovement movement;
+    private int formNum = 1;
 
     // Use this for initialization
     void Start () {
+        health = GetComponent<PlayerHealth>();
+        movement = GetComponent<PlayerMovement>();
         currentGun = 0;
         timeSinceLastVolley = timeBetweenVolleys;
         foreach (Transform child in gunHolder.transform)
@@ -94,6 +99,13 @@ public class GunManager : MonoBehaviour {
         maxBullets += gun.GetComponent<Gun>().numBullets;
         numBullets += gun.GetComponent<Gun>().numBullets;
         if (numBullets > maxBullets) numBullets = maxBullets;
+        if (numGuns == 5 || numGuns == 10 || numGuns == 15 || numGuns == 20)
+        {
+            formNum++;
+            health.calculateHealth(formNum);
+            movement.calculateMovementSpeed(formNum);
+            health.scaleUp();
+        }
     }
 
     bool dropGun() {
@@ -109,6 +121,14 @@ public class GunManager : MonoBehaviour {
         maxBullets -= gun.GetComponent<Gun>().numBullets;
         numBullets -= (maxBullets / gun.GetComponent<Gun>().numBullets);
         if (numBullets > maxBullets) numBullets = maxBullets;
+
+        if (numGuns == 4 || numGuns == 9 || numGuns == 14 || numGuns == 19)
+        {
+            formNum--;
+            health.calculateHealth(formNum);
+            movement.calculateMovementSpeed(formNum);
+            health.scaleDown();
+        }
         return true;
     }
 

@@ -1000,7 +1000,7 @@ Prefab:
     - target: {fileID: 114659590371249756, guid: cc3f3c69f43636243bbe0a7a4fc1a599,
         type: 2}
       propertyPath: maxhealth
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc3f3c69f43636243bbe0a7a4fc1a599, type: 2}
