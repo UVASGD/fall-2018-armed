@@ -109,4 +109,7 @@ public class GunManager : MonoBehaviour {
         if (numBullets > maxBullets) numBullets = maxBullets;
         return true;
     }
+
+	public int getCurBullets(){return numBullets;}
+	public int getMaxBullets(){return maxBullets;}
 }
