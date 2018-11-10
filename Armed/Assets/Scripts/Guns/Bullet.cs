@@ -26,4 +26,9 @@ public class Bullet : MonoBehaviour {
         yield return new WaitForSeconds(seconds);
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
+    }
 }
