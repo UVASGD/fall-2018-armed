@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //Calculate offset value between camera and player
+        player = GameObject.FindGameObjectWithTag("Player");
         offset = transform.position - player.transform.position;
 	}
 	
