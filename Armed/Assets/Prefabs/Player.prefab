@@ -178,11 +178,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHeat: 0
   currHeat: 0
-  numGuns: 0
   heatDecreaseRatePerGun: 0
   heatIncreaseRate: 0
   gunDistAngle: 60
   gunHolder: {fileID: 1181106018831120}
+  numGuns: 0
+  reloadProgress: 0
+  numBullets: 0
+  shotsPerVolley: 1
+  currentGun: 0
 --- !u!114 &114656884253216234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,6 +203,7 @@ MonoBehaviour:
   throw_speed: 100
   inventory_full: 0
   max_inventory_items: 25
+  formNum: 0
   inventoryCount: 0
   objectPrefab: {fileID: 0}
   objectSpawn: {fileID: 4174085859910014}
@@ -223,6 +228,9 @@ MonoBehaviour:
   curr_health: 0
   tier1health: 0
   tier2health: 0
+  tier3health: 0
+  tier4health: 0
+  tier5health: 0
   health_percent: 0
 --- !u!114 &114937932193565814
 MonoBehaviour:
@@ -241,6 +249,12 @@ MonoBehaviour:
   slow_regen: 15
   base_regen: 25
   maxstamina: 100
+  speedtier1: 0
+  speedtier2: 0
+  speedtier3: 0
+  speedtier4: 0
+  speedtier5: 0
+  sprintdelta: 0
 --- !u!212 &212535569608425034
 SpriteRenderer:
   m_ObjectHideFlags: 1
