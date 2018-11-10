@@ -34,6 +34,7 @@ public class PlayerInventory : MonoBehaviour {
         currentObjectIndex = 0;
         movement = GetComponent<PlayerMovement>();
         health = GetComponent<PlayerHealth>();
+        formNum = 1;
     }
 	
 	// Update is called once per frame

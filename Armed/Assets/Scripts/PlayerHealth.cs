@@ -13,11 +13,13 @@ public class PlayerHealth : MonoBehaviour {
     public float health_percent;
     private float scale;
     // Scaler should be under 1 for scaling scripts to work properly
-    private float scaler;
+    private float scaler = .85f;
     private PlayerInventory inventory;
     // Use this for initialization
     void Start () {
         inventory = gameObject.GetComponent<PlayerInventory>();
+        maxhealth = tier1health;
+        curr_health = tier1health;
     }
 	
 	// Update is called once per frame
