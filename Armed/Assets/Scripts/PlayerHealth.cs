@@ -5,13 +5,21 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
 
     public float maxhealth, curr_health;
-    public float tier1health, tier2health, tier3health, tier4health, tier5health;
+    public float tier1health = 60;
+    public float tier2health = 80;
+    public float tier3health = 100;
+    public float tier4health = 120;
+    public float tier5health = 140;
     public float health_percent;
     private float scale;
+    // Scaler should be under 1 for scaling scripts to work properly
+    private float scaler = .85f;
     private PlayerInventory inventory;
     // Use this for initialization
     void Start () {
         inventory = gameObject.GetComponent<PlayerInventory>();
+        maxhealth = tier1health;
+        curr_health = tier1health;
     }
 	
 	// Update is called once per frame
@@ -65,7 +73,17 @@ public class PlayerHealth : MonoBehaviour {
             default:
                 break;
         }
-        scale = 1;
+    }
+
+    public void scaleDown()
+    {
+        scale *= scaler;
+        transform.localScale = new Vector3(scale, scale, transform.localScale.z);
+    }
+
+    public void scaleUp()
+    {
+        scale /= scaler;
         transform.localScale = new Vector3(scale, scale, transform.localScale.z);
     }
 }
