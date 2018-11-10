@@ -98,4 +98,7 @@ public class GunManager : MonoBehaviour {
         numBullets -= (maxBullets / gun.GetComponent<Gun>().numBullets);
         return true;
     }
+
+	public int getCurBullets(){return numBullets;}
+	public int getMaxBullets(){return maxBullets;}
 }
