@@ -38,9 +38,8 @@ public class GunManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Debug.Log(maxBullets);
-        if (Input.GetButton("Fire1") && timeSinceLastVolley >= timeBetweenVolleys && numBullets > 0)
+        if (Input.GetButton("Fire1") && timeSinceLastVolley >= timeBetweenVolleys && numBullets > 0 && numGuns > 0)
         {
-            int numGuns = gunHolder.transform.childCount;
             for (int i = 0; i < shotsPerVolley; i++) {
                 if (numBullets <= 0)
                 {
@@ -69,6 +68,8 @@ public class GunManager : MonoBehaviour {
             dropGun();
         }
         timeSinceLastVolley += Time.deltaTime;
+        if (currentGun >= numGuns) currentGun = numGuns - 1;
+        if (currentGun < 0) currentGun = 0;
     }
 
     void OnTriggerEnter2D(Collider2D other)
