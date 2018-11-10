@@ -10,17 +10,22 @@ public class GunManager : MonoBehaviour {
     public float heatIncreaseRate;
     public float gunDistAngle;
     public GameObject gunHolder;
-    private int numGuns;
-    private float lastFireTime;
-    private float reloadProgress;
+    public int numGuns;
+    public float reloadProgress;
     private float reloadProgressComplete = 3;
     private int maxBullets;
-    private int numBullets;
-    private int shotsPerVolley;
+    public int numBullets;
+    public int shotsPerVolley;
 
-	// Use this for initialization
-	void Start () {
-        lastFireTime = 0;
+    private float timeBetweenVolleys = 0.5f;
+    private float timeSinceLastVolley;
+    public int currentGun;
+
+
+    // Use this for initialization
+    void Start () {
+        currentGun = 0;
+        timeSinceLastVolley = timeBetweenVolleys;
         foreach (Transform child in gunHolder.transform)
         {
             numGuns += 1;
@@ -33,33 +38,37 @@ public class GunManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Debug.Log(maxBullets);
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && timeSinceLastVolley >= timeBetweenVolleys && numBullets > 0)
         {
-            foreach (Transform child in gunHolder.transform) {
+            int numGuns = gunHolder.transform.childCount;
+            for (int i = 0; i < shotsPerVolley; i++) {
                 if (numBullets <= 0)
                 {
                     break;
                 }
+                Transform child = gunHolder.transform.GetChild(currentGun);
                 if (child.GetComponent<Gun>().Shoot())
                 {
                     numBullets--;
                 }
             }
-            lastFireTime = Time.fixedTime;
+            timeSinceLastVolley = 0;
             reloadProgress = 0;
+            currentGun = (currentGun + 1) % numGuns;
         }
         else
         {
             reloadProgress += Time.deltaTime;
-        }
-
-        if (reloadProgress >= reloadProgressComplete) {
-            numBullets = maxBullets;
+            if (reloadProgress >= reloadProgressComplete)
+            {
+                numBullets = maxBullets;
+            }
         }
 
         if (Input.GetButtonDown("DropGun")) {
             dropGun();
         }
+        timeSinceLastVolley += Time.deltaTime;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -78,10 +87,12 @@ public class GunManager : MonoBehaviour {
         numGuns++;
         gun.transform.parent = gunHolder.transform;
         gun.GetComponent<Rigidbody2D>().isKinematic = true;
+        gun.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         gun.transform.localPosition = new Vector3(Random.Range(-.5f, .5f), .5f, 0);
         gun.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 90 + Random.Range(-gunDistAngle / 2, gunDistAngle / 2)));
         maxBullets += gun.GetComponent<Gun>().numBullets;
         numBullets += gun.GetComponent<Gun>().numBullets;
+        if (numBullets > maxBullets) numBullets = maxBullets;
     }
 
     bool dropGun() {
@@ -96,6 +107,7 @@ public class GunManager : MonoBehaviour {
         gun.parent = null;
         maxBullets -= gun.GetComponent<Gun>().numBullets;
         numBullets -= (maxBullets / gun.GetComponent<Gun>().numBullets);
+        if (numBullets > maxBullets) numBullets = maxBullets;
         return true;
     }
 
