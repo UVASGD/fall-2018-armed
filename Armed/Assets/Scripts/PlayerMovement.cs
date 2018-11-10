@@ -127,4 +127,7 @@ public class PlayerMovement : MonoBehaviour
         // which is a constant percent increase
         sprint_speed = base_speed * sprintdelta;
     }
+
+	public float getCurStamina(){ return curr_stamina;}
+	public float getMaxStamina() { return maxstamina; }
 }
