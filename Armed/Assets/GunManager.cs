@@ -87,6 +87,7 @@ public class GunManager : MonoBehaviour {
         numGuns++;
         gun.transform.parent = gunHolder.transform;
         gun.GetComponent<Rigidbody2D>().isKinematic = true;
+        gun.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         gun.transform.localPosition = new Vector3(Random.Range(-.5f, .5f), .5f, 0);
         gun.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 90 + Random.Range(-gunDistAngle / 2, gunDistAngle / 2)));
         maxBullets += gun.GetComponent<Gun>().numBullets;
