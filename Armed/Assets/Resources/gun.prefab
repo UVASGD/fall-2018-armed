@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownTime: 0.4
   currentCooldown: 0
-  numBullets: 1
+  numBullets: 2
   bullet: {fileID: 4104811007245260, guid: 3e2bf9b7dcef849348516e689109ebfc, type: 2}
 --- !u!212 &212274316232855172
 SpriteRenderer:

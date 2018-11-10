@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     public readonly int BULLET_LAYER = 13;
     public int bulletDamage;
     public int maxHealth;
-    int currentHealth;
+    public int currentHealth;
 
     // Use this for initialization
     void Start()
