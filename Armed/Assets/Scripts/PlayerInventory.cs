@@ -84,6 +84,7 @@ public class PlayerInventory : MonoBehaviour {
                 formNum--;
                 health.calculateHealth(formNum);
                 movement.calculateMovementSpeed(formNum);
+                health.scaleDown();
             }
             inventory_full = false;
         }
@@ -164,6 +165,7 @@ public class PlayerInventory : MonoBehaviour {
                 formNum++;
                 health.calculateHealth(formNum);
                 movement.calculateMovementSpeed(formNum);
+                health.scaleUp();
             }
             if (inventoryCount == max_inventory_items)
             {
