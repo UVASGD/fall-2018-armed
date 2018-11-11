@@ -77,4 +77,12 @@ public class EnemyMovement : MonoBehaviour {
         currState = newState;
         currState.StateEnter();
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "object")
+        {
+            setState(new AggroState(this));
+        }
+    }
 }
