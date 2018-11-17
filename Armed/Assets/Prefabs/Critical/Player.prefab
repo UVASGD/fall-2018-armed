@@ -226,12 +226,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhealth: 0
   curr_health: 0
-  tier1health: 0
-  tier2health: 0
-  tier3health: 0
-  tier4health: 0
-  tier5health: 0
-  health_percent: 0
 --- !u!114 &114937932193565814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -249,12 +243,6 @@ MonoBehaviour:
   slow_regen: 15
   base_regen: 25
   maxstamina: 100
-  speedtier1: 0
-  speedtier2: 0
-  speedtier3: 0
-  speedtier4: 0
-  speedtier5: 0
-  sprintdelta: 0
 --- !u!212 &212535569608425034
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -287,8 +275,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1022267761
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 96eb9000edd87184699ab4973c5a893a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
