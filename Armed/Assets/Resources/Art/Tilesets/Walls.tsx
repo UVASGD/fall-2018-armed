@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Walls" tilewidth="64" tileheight="64" tilecount="5" columns="0">
+<tileset name="Walls" tilewidth="64" tileheight="64" tilecount="12" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1">
   <image width="64" height="64" source="../Environment/Walls/Thin Wall vertical.png"/>
@@ -25,7 +25,28 @@
    <object id="1" x="0" y="42" width="63" height="19"/>
   </objectgroup>
  </tile>
- <tile id="5">
+ <tile id="9">
   <image width="64" height="64" source="../Environment/Walls/Thin Wall Corner.png"/>
+ </tile>
+ <tile id="10">
+  <image width="64" height="64" source="../Environment/Walls/Thin Wall Corner-2.png"/>
+ </tile>
+ <tile id="11">
+  <image width="64" height="64" source="../Environment/Walls/Thin Wall Corner-3.png"/>
+ </tile>
+ <tile id="12">
+  <image width="64" height="64" source="../Environment/Walls/Thin Wall Corner-4.png"/>
+ </tile>
+ <tile id="13">
+  <image width="64" height="64" source="../Environment/Walls/Small corner-1.png"/>
+ </tile>
+ <tile id="14">
+  <image width="64" height="64" source="../Environment/Walls/Small corner-2.png"/>
+ </tile>
+ <tile id="15">
+  <image width="64" height="64" source="../Environment/Walls/Small corner-3.png"/>
+ </tile>
+ <tile id="16">
+  <image width="64" height="64" source="../Environment/Walls/Small corner-4.png"/>
  </tile>
 </tileset>
