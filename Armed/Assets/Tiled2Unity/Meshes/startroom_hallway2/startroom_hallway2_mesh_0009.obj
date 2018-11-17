@@ -1,0 +1,29 @@
+﻿# Tiled2Unity generated file. Do not modify by hand.
+# Wavefront file for 'startroom_hallway2_mesh_0009.obj'
+
+# Vertices (Count = 8)
+v -1792 -2752 0
+v -1856 -2752 0
+v -1856 -2688 0
+v -1792 -2688 0
+v -4928 -2752 0
+v -4992 -2752 0
+v -4992 -2688 0
+v -4928 -2688 0
+
+# Texture cooridinates (Count = 4)
+vt 0 0
+vt 1 0
+vt 1 1
+vt 0 1
+
+# Normal
+vn 0 0 -1
+
+# Mesh description
+g startroom_hallway2_mesh_0009
+
+# Faces
+f 1/1/1 2/2/1 3/3/1 4/4/1
+f 5/2/1 6/3/1 7/4/1 8/1/1
+
