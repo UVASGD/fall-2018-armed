@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 114937932193565814}
   - component: {fileID: 50470636637557126}
   - component: {fileID: 58677250916478628}
-  - component: {fileID: 114656884253216234}
   - component: {fileID: 114577347940018338}
   - component: {fileID: 114659590371249756}
   m_Layer: 5
@@ -187,29 +186,7 @@ MonoBehaviour:
   numBullets: 0
   shotsPerVolley: 1
   currentGun: 0
---- !u!114 &114656884253216234
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1852528298055190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbc61afa1c30bd149a73f3d98c57dc08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tags: []
-  inventorySlotSizes: 00000000000000000000000000000000
-  throw_speed: 100
-  inventory_full: 0
-  max_inventory_items: 25
-  formNum: 0
-  inventoryCount: 0
-  objectPrefab: {fileID: 0}
-  objectSpawn: {fileID: 4174085859910014}
-  pistolPrefab: {fileID: 0}
-  shotgunPrefab: {fileID: 0}
-  machine_gunPrefab: {fileID: 0}
+  formNum: 1
 --- !u!114 &114659590371249756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -221,6 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f6df69371ab0a45b5027127d982864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletDamage: 0
   maxhealth: 0
   curr_health: 0
 --- !u!114 &114937932193565814

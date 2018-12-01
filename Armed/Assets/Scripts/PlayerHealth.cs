@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
 
+    public readonly int BULLET_LAYER = 13;
+    public int bulletDamage;
     public float maxhealth, curr_health;
-    float tier1health = 60;
-    float tier2health = 80;
-    float tier3health = 100;
-    float tier4health = 120;
-    float tier5health = 140;
+    float[] healthTiers = { 60, 80, 100, 120, 140 };
     float health_percent;
     private float scale = 1;
     // Scaler should be under 1 for scaling scripts to work properly
@@ -17,8 +15,8 @@ public class PlayerHealth : MonoBehaviour {
     private GunManager gunManager;
     // Use this for initialization
     void Start () {
-        maxhealth = tier1health;
-        curr_health = tier1health;
+        maxhealth = healthTiers[0];
+        curr_health = healthTiers[0];
         gunManager = GetComponent<GunManager>();
     }
 	
@@ -31,53 +29,41 @@ public class PlayerHealth : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Handle Bullets
+        if (collision.gameObject.layer == BULLET_LAYER)
+        {
+            print("BULLET HIT ME");
+            TakeBulletDamage();
+        }
+    }
+
+    private void TakeBulletDamage()
+    {
+        if (curr_health - bulletDamage < 0)
+        {
+            curr_health = 0;
+            foreach (Transform child in gameObject.transform)
+            {
+                child.transform.parent = null;
+            }
+            Destroy(gameObject);
+        }
+        else
+        {
+            curr_health -= bulletDamage;
+        }
     }
 
     public void calculateHealth(int form)
     {
         // Changes health based on amount of items in inventory
         // todo: movement speed inverse to inventory, player size increases as inventory increases
-        switch(form)
-        {
-            // Changes health and max health based on the number of items in your inventory
-            // At breakpoints of 3 and 4 items, will change maxhealth and then scale current health based on the percent of maxhealth you previously had
-            case 0:
-                maxhealth = tier1health;
-                break;
-            case 1:
-                health_percent = curr_health / maxhealth;
-                maxhealth = tier1health;
-                curr_health = maxhealth * health_percent;
-                gunManager.shotsPerVolley = 1;
-                break;
-            case 2:
-                health_percent = curr_health / maxhealth;
-                maxhealth = tier2health;
-                curr_health = maxhealth * health_percent;
-                gunManager.shotsPerVolley = 2;
-                break;
-            case 3:
-                health_percent = curr_health / maxhealth;
-                maxhealth = tier3health;
-                curr_health = maxhealth * health_percent;
-                gunManager.shotsPerVolley = 3;
-                break;
-            case 4:
-                health_percent = curr_health / maxhealth;
-                maxhealth = tier4health;
-                curr_health = maxhealth * health_percent;
-                gunManager.shotsPerVolley = 4;
-                break;
-            case 5:
-                health_percent = curr_health / maxhealth;
-                maxhealth = tier5health;
-                curr_health = maxhealth * health_percent;
-                gunManager.shotsPerVolley = 5;
-                break;
-            default:
-                break;
-        }
+        // Changes health and max health based on the number of items in your inventory
+        // At breakpoints of 3 and 4 items, will change maxhealth and then scale current health based on the percent of maxhealth you previously had
+
+        health_percent = curr_health / maxhealth;
+        maxhealth = healthTiers[form];
+        curr_health = maxhealth * health_percent;
+        gunManager.shotsPerVolley = Mathf.Max(1, form);
     }
 
     public void scaleDown()

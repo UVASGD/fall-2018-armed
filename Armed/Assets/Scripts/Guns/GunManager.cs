@@ -23,7 +23,7 @@ public class GunManager : MonoBehaviour {
 
     private PlayerHealth health;
     private PlayerMovement movement;
-    private int formNum = 1;
+    public int formNum = 1;
 
     // Use this for initialization
     void Start () {
