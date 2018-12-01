@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
 
     // Speed of the bullet
-    float velocity = 5f;
+    float velocity = 15f;
     // Lifetime of the bullet before it disappears
     float lifetime = 3f;
 
@@ -24,6 +24,11 @@ public class Bullet : MonoBehaviour {
     IEnumerator DeleteAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         Destroy(gameObject);
     }
 }

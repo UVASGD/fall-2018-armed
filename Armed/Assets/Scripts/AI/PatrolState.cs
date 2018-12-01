@@ -51,5 +51,7 @@ public class PatrolState : AIState {
         currEnemy.targetPoint = nextPoint[minIndex];
         currEnemy.targetMove = currEnemy.targetPoint.transform.position;
         currEnemy.currPoint = minIndex;
+        float angle = Vector2.SignedAngle(Vector2.up, currEnemy.targetMove - currEnemy.transform.position);
+        currEnemy.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));  //Rotate Player
     }
 }

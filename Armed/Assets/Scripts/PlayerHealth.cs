@@ -5,21 +5,21 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
 
     public float maxhealth, curr_health;
-    public float tier1health = 60;
-    public float tier2health = 80;
-    public float tier3health = 100;
-    public float tier4health = 120;
-    public float tier5health = 140;
-    public float health_percent;
-    private float scale;
+    float tier1health = 60;
+    float tier2health = 80;
+    float tier3health = 100;
+    float tier4health = 120;
+    float tier5health = 140;
+    float health_percent;
+    private float scale = 1;
     // Scaler should be under 1 for scaling scripts to work properly
     private float scaler = .85f;
-    private PlayerInventory inventory;
+    private GunManager gunManager;
     // Use this for initialization
     void Start () {
-        inventory = gameObject.GetComponent<PlayerInventory>();
         maxhealth = tier1health;
         curr_health = tier1health;
+        gunManager = GetComponent<GunManager>();
     }
 	
 	// Update is called once per frame
@@ -49,26 +49,31 @@ public class PlayerHealth : MonoBehaviour {
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier1health;
                 curr_health = maxhealth * health_percent;
+                gunManager.shotsPerVolley = 1;
                 break;
             case 2:
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier2health;
                 curr_health = maxhealth * health_percent;
+                gunManager.shotsPerVolley = 2;
                 break;
             case 3:
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier3health;
                 curr_health = maxhealth * health_percent;
+                gunManager.shotsPerVolley = 3;
                 break;
             case 4:
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier4health;
                 curr_health = maxhealth * health_percent;
+                gunManager.shotsPerVolley = 4;
                 break;
             case 5:
                 health_percent = curr_health / maxhealth;
                 maxhealth = tier5health;
                 curr_health = maxhealth * health_percent;
+                gunManager.shotsPerVolley = 5;
                 break;
             default:
                 break;

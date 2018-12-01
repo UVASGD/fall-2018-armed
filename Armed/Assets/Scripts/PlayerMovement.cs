@@ -18,13 +18,13 @@ public class PlayerMovement : MonoBehaviour
     public float maxstamina;
 
     // Speeds for all the different speedtiers
-    public float speedtier1 = 10.3f;
-    public float speedtier2 = 8f;
-    public float speedtier3 = 5.6f;
-    public float speedtier4 = 3.92f;
-    public float speedtier5 = 2.75f;
+    float speedtier1 = 10.3f;
+    float speedtier2 = 8f;
+    float speedtier3 = 5.6f;
+    float speedtier4 = 3.92f;
+    float speedtier5 = 2.75f;
     // Percent increase in speed when sprinting
-    public float sprintdelta = 1.5f;
+    float sprintdelta = 1.5f;
 
     private Rigidbody2D rb2d;
 
@@ -127,4 +127,7 @@ public class PlayerMovement : MonoBehaviour
         // which is a constant percent increase
         sprint_speed = base_speed * sprintdelta;
     }
+
+	public float getCurStamina(){ return curr_stamina;}
+	public float getMaxStamina() { return maxstamina; }
 }
