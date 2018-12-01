@@ -16,6 +16,8 @@ public class GunManager : MonoBehaviour {
     private int maxBullets;
     public int numBullets;
     public int shotsPerVolley;
+    private bool spreadMode = false;
+    private float playerWidth;
 
     private float timeBetweenVolleys = 0.1f;
     private float timeSinceLastVolley;
@@ -38,7 +40,8 @@ public class GunManager : MonoBehaviour {
         }
         numBullets = maxBullets;
         reloadProgress = 0;
-	}
+        playerWidth = this.GetComponent<Renderer>().bounds.size.x;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -72,6 +75,10 @@ public class GunManager : MonoBehaviour {
         if (Input.GetButtonDown("DropGun")) {
             dropGun();
         }
+        if (Input.GetButtonDown("ChangeFiringMode"))
+        {
+            toggleFiringMode();
+        }
         timeSinceLastVolley += Time.deltaTime;
         if (currentGun >= numGuns) currentGun = numGuns - 1;
         if (currentGun < 0) currentGun = 0;
@@ -79,7 +86,6 @@ public class GunManager : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collided with: " + other.gameObject.name);
         if (other.gameObject.tag == "pistol")
         {
             pickUpGun(other.gameObject);
@@ -115,6 +121,7 @@ public class GunManager : MonoBehaviour {
 
         Transform gun = gunHolder.transform.GetChild(0);
         gun.GetComponent<Rigidbody2D>().isKinematic = false;
+        gun.transform.localScale = new Vector3(10, 2, 2);
         numGuns--;
         gun.GetComponent<Rigidbody2D>().velocity = this.transform.up * 50;
         gun.parent = null;
@@ -132,6 +139,33 @@ public class GunManager : MonoBehaviour {
         return true;
     }
 
-	public int getCurBullets(){return numBullets;}
+    void toggleFiringMode() {
+        spreadMode = !spreadMode;
+        float gunAreaWidth = playerWidth - 0.35f;
+        float distBetween = gunAreaWidth / (numGuns - 1);
+        float position = -gunAreaWidth / 2;
+        if (numGuns == 1) {
+            position = 0;
+        }
+        float angle;
+        float angleDiffBetween;
+        if (spreadMode) {
+            angle = 110;
+            angleDiffBetween = 40 / (numGuns - 1);
+        } else {
+            angle = 90;
+            angleDiffBetween = 0;
+        }
+        foreach (Transform child in gunHolder.transform)
+        {
+            Vector3 pos = child.gameObject.GetComponent<Gun>().transform.localPosition;
+            child.gameObject.GetComponent<Gun>().transform.localPosition = new Vector3(position, 0.5f, pos.z);
+            child.gameObject.GetComponent<Gun>().transform.localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            position += distBetween;
+            angle -= angleDiffBetween;
+        }
+    }
+
+    public int getCurBullets(){return numBullets;}
 	public int getMaxBullets(){return maxBullets;}
 }
