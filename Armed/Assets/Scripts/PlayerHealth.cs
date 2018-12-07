@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour {
     public float maxhealth, curr_health;
     float[] healthTiers = { 60, 80, 100, 120, 140 };
     float health_percent;
-    private float scale = 1;
+    private float scale;
     // Scaler should be under 1 for scaling scripts to work properly
     private float scaler = .85f;
     private GunManager gunManager;
@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour {
         maxhealth = healthTiers[0];
         curr_health = healthTiers[0];
         gunManager = GetComponent<GunManager>();
+        scale = gameObject.transform.localScale.x;
     }
 	
 	// Update is called once per frame
