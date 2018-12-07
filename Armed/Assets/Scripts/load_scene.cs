@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class load_scene : MonoBehaviour {
-    public string load_level;
+    public int level;
 
 	// Use this for initialization
 	void Start () {
@@ -19,12 +19,11 @@ public class load_scene : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         StartCoroutine("level_change");
-        Debug.Log("I'm colliding");
     }
 
     IEnumerator level_change()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(load_level); //Load Level
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(level); //Load Level
         //Wait until fully loaded
         while (!asyncLoad.isDone)
         {
