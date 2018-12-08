@@ -14,5 +14,6 @@ void Start()
     void OnClick()
     {
         Application.Quit();
+        Debug.Log("it do");
     }
 }
