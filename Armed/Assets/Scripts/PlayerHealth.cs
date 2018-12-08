@@ -30,13 +30,19 @@ public class PlayerHealth : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        print(collision.gameObject.tag);
         if (collision.gameObject.layer == BULLET_LAYER)
         {
             print("BULLET HIT ME");
             TakeBulletDamage();
         }
+        if (collision.gameObject.tag == "healthpack")
+        {
+            print("Picked up health");
+            Destroy(collision.gameObject);
+            UseHealthPack();
+        }
     }
-
     private void TakeBulletDamage()
     {
         if (curr_health - bulletDamage < 0)
@@ -52,6 +58,10 @@ public class PlayerHealth : MonoBehaviour {
         {
             curr_health -= bulletDamage;
         }
+    }
+    private void UseHealthPack()
+    {
+        curr_health += 0.5f*maxhealth;
     }
 
     public void calculateHealth(int form)
