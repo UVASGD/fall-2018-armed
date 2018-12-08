@@ -27,10 +27,20 @@ public class EnemyMovement : MonoBehaviour {
         if (patrolPoints.Count == 0)
         {
             Navpoint[] availablePoints = NavmeshHolder.GetComponentsInChildren<Navpoint>();
+            print(availablePoints.Length);
             SortedList toChooseFrom = new SortedList();
             for (int x = 0; x < availablePoints.Length; x++)
             {
-                toChooseFrom.Add(-Vector3.SqrMagnitude(availablePoints[x].transform.position - transform.position), availablePoints[x]);
+                float currDist = Vector3.Distance(transform.position, availablePoints[x].transform.position);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, availablePoints[x].transform.position - transform.position, currDist);
+                if (hit.collider != null)
+                {
+                    continue;
+                }
+                else
+                {
+                    toChooseFrom.Add(currDist, availablePoints[x]);
+                }
             }
             patrolPoints.Add((Navpoint)toChooseFrom.GetByIndex(0));
             for (int x = 0; x < 2; x++)

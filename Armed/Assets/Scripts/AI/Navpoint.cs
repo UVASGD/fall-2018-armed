@@ -17,7 +17,6 @@ public class Navpoint : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, allNavpoints[x].transform.position - transform.position, Vector3.Distance(allNavpoints[x].transform.position, transform.position));
             if (hit.collider != null)
             {
-                print(hit.collider.name);
                 continue;
             }
             else
