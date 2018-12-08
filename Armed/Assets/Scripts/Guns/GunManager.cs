@@ -48,7 +48,8 @@ public class GunManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Debug.Log(maxBullets);
-        if (Input.GetButton("Fire1") && timeSinceLastVolley >= timeBetweenVolleys && numBullets > 0 && numGuns > 0)
+        Vector2 analogStickPos = new Vector2(Input.GetAxis("Right Joystick X"), Input.GetAxis("Right Joystick Y"));
+        if ((Input.GetButton("Fire1") || analogStickPos != Vector2.zero) && timeSinceLastVolley >= timeBetweenVolleys && numBullets > 0 && numGuns > 0)
         {
             for (int i = 0; i < shotsPerVolley; i++) {
                 if (numBullets <= 0)

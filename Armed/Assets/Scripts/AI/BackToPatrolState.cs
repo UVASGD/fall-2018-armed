@@ -18,7 +18,7 @@ public class BackToPatrolState : AIState
             SortedList toChooseFrom = new SortedList();
             for (int x = 0; x < nextPoint.Count; x++)
             {
-                toChooseFrom.Add(-Vector3.SqrMagnitude(nextPoint[x].transform.position - currEnemy.patrolPoints[0].transform.position), nextPoint[x]);
+                toChooseFrom.Add(Vector3.SqrMagnitude(nextPoint[x].transform.position - currEnemy.patrolPoints[0].transform.position), nextPoint[x]);
             }
             currEnemy.targetPoint = (Navpoint)toChooseFrom.GetByIndex(0);
             Vector3 rand = Random.insideUnitCircle;

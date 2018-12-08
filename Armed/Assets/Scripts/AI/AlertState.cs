@@ -42,15 +42,23 @@ public class AlertState : AIState {
     {
         int numNavpoints = currEnemy.NavmeshHolder.transform.childCount;
         Transform[] transforms = currEnemy.NavmeshHolder.GetComponentsInChildren<Transform>();
-        double minDist = Mathf.Infinity;
+        float minDist = Mathf.Infinity;
         int minIndex = -1;
         for (int x = 0; x < numNavpoints; x++)
         {
-            double currDist = Vector3.Distance(transform.position, transforms[x].position);
-            if (currDist < minDist)
+            float currDist = Vector3.Distance(transform.position, transforms[x].position);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transforms[x].position - transform.position, currDist);
+            if (hit.collider != null)
             {
-                minDist = currDist;
-                minIndex = x;
+                continue;
+            }
+            else
+            {
+                if (currDist < minDist)
+                {
+                    minDist = currDist;
+                    minIndex = x;
+                }
             }
         }
         currEnemy.targetPoint = transforms[minIndex].GetComponent<Navpoint>();
