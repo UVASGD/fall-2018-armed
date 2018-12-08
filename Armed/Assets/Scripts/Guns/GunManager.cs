@@ -26,6 +26,7 @@ public class GunManager : MonoBehaviour {
     private PlayerHealth health;
     private PlayerMovement movement;
     public int formNum = 1;
+    private float gunScale;
 
     // Use this for initialization
     void Start () {
@@ -41,6 +42,7 @@ public class GunManager : MonoBehaviour {
         numBullets = maxBullets;
         reloadProgress = 0;
         playerWidth = this.GetComponent<Renderer>().bounds.size.x;
+        gunScale = gameObject.transform.localScale.x / 2;
     }
 	
 	// Update is called once per frame
@@ -125,6 +127,7 @@ public class GunManager : MonoBehaviour {
         numGuns--;
         gun.GetComponent<Rigidbody2D>().velocity = this.transform.up * 50;
         gun.parent = null;
+        gun.transform.localScale = new Vector3(5 * gunScale, gunScale, gunScale);
         maxBullets -= gun.GetComponent<Gun>().numBullets;
         numBullets -= (maxBullets / gun.GetComponent<Gun>().numBullets);
         if (numBullets > maxBullets) numBullets = maxBullets;
