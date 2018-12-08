@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     // Sprinting variables used to adjust when and how often you can sprint
     public float sprint_regen, slow_regen, base_regen;
     public float maxstamina;
+    public bool useMouse = true;
 
     // Speeds for all the different speedtiers
     float speedtier1 = 10.3f;
@@ -87,9 +88,18 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(move * Time.deltaTime, Space.World);
 
         //Rotation of the Player
-        Vector2 playerpos = Camera.main.WorldToViewportPoint(transform.position);   //Define Player Position
-        Vector2 mousepos = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition); //Define Mouse Position
-        float angle = Vector2.SignedAngle(Vector2.up, mousepos - playerpos);   //Solve for the angle between the player and mouse
+        float angle;
+        if (useMouse)
+        {
+            Vector2 playerpos = Camera.main.WorldToViewportPoint(transform.position);   //Define Player Position
+            Vector2 mousepos = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition); //Define Mouse Position
+            angle = Vector2.SignedAngle(Vector2.up, mousepos - playerpos);   //Solve for the angle between the player and mouse
+        }
+        else
+        {
+            Vector2 analogStickPos = new Vector2(Input.GetAxis("Right Joystick X"), Input.GetAxis("Right Joystick Y"));
+            angle = Vector2.SignedAngle(Vector2.up, analogStickPos);
+        }
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));  //Rotate Player
 
         //Check for Throwing item
