@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour {
 
@@ -58,6 +59,10 @@ public class PlayerHealth : MonoBehaviour {
         {
             curr_health -= bulletDamage;
         }
+        if(curr_health <= 0)
+        {
+            StartCoroutine("level_change");
+        }
     }
     private void UseHealthPack()
     {
@@ -87,5 +92,15 @@ public class PlayerHealth : MonoBehaviour {
     {
         scale /= scaler;
         transform.localScale = new Vector3(scale, scale, transform.localScale.z);
+    }
+
+    IEnumerator level_change()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(4); //Load Level
+        //Wait until fully loaded
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }
