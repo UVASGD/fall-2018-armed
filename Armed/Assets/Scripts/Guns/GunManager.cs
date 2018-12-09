@@ -41,7 +41,7 @@ public class GunManager : MonoBehaviour {
         }
         numBullets = maxBullets;
         reloadProgress = 0;
-        playerWidth = this.GetComponent<Renderer>().bounds.size.x;
+        playerWidth = this.GetComponent<Renderer>().bounds.size.x / 3;
         gunScale = gameObject.transform.localScale.x / 2;
     }
 	
@@ -114,7 +114,10 @@ public class GunManager : MonoBehaviour {
             health.calculateHealth(formNum);
             movement.calculateMovementSpeed(formNum);
             health.scaleUp();
+            playerWidth = this.GetComponent<Renderer>().bounds.size.x / 3;
         }
+        toggleFiringMode();
+        toggleFiringMode();
     }
 
     bool dropGun() {
@@ -139,7 +142,10 @@ public class GunManager : MonoBehaviour {
             health.calculateHealth(formNum);
             movement.calculateMovementSpeed(formNum);
             health.scaleDown();
+            playerWidth = this.GetComponent<Renderer>().bounds.size.x / 3;
         }
+        toggleFiringMode();
+        toggleFiringMode();
         return true;
     }
 
