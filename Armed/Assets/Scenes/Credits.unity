@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Text: "Directors: Robert Anton and Jared Capelle\n\nHead Programmers: Omar El
     Sheikh and Laura Maimon\nProgramming: William Wong, Stefan Norling, Xinyuan Zhu,
     Savannah Martin, Chnghan Zhou, \nJack Vance, and Tiimothy Kim\n\nDesigners: Alex
-    Kim, Nick Moon, Everett Adams\n\nArt: Marlene Wartenberg\n"
+    Kim, Nick Moon, Everett Adams\n\nArt: Marlene Wartenberg\n\nMusic: Victoria Lu\n"
 --- !u!222 &433244236
 CanvasRenderer:
   m_ObjectHideFlags: 0
