@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 622349658}
-  level: 4
+  level: 3
 --- !u!1 &860410245
 GameObject:
   m_ObjectHideFlags: 0
